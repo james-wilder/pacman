@@ -67,12 +67,26 @@ public class PacManPanel extends JPanel {
             }
         }
 
-        gameState.getMoveables().forEach(moveable -> {
-            BufferedImage pill = spriteMap.get("ghost_1");
+        drawGameState.getMoveables().forEach(moveable -> {
+            BufferedImage pill = spriteMap.get(moveable.getName());
             g.drawImage(pill, (int)(moveable.getX(now) * 8 * SCALE), (int)(moveable.getY(now) * 8 * SCALE), 2 * 8 * SCALE, 2 * 8 * SCALE, null);
-            if (moveable.getXs() < 0) {
-                BufferedImage eyes = spriteMap.get("ghost_eyes_left");
-                g.drawImage(eyes, (int) (moveable.getX(now) * 8 * SCALE), (int) (moveable.getY(now) * 8 * SCALE), 2 * 8 * SCALE, 2 * 8 * SCALE, null);
+            if (moveable.getName().startsWith("ghost")) {
+                if (moveable.getXs() < 0) {
+                    BufferedImage eyes = spriteMap.get("ghost_eyes_left");
+                    g.drawImage(eyes, (int) (moveable.getX(now) * 8 * SCALE), (int) (moveable.getY(now) * 8 * SCALE), 2 * 8 * SCALE, 2 * 8 * SCALE, null);
+                }
+                if (moveable.getXs() > 0) {
+                    BufferedImage eyes = spriteMap.get("ghost_eyes_right");
+                    g.drawImage(eyes, (int) (moveable.getX(now) * 8 * SCALE), (int) (moveable.getY(now) * 8 * SCALE), 2 * 8 * SCALE, 2 * 8 * SCALE, null);
+                }
+                if (moveable.getYs() < 0) {
+                    BufferedImage eyes = spriteMap.get("ghost_eyes_up");
+                    g.drawImage(eyes, (int) (moveable.getX(now) * 8 * SCALE), (int) (moveable.getY(now) * 8 * SCALE), 2 * 8 * SCALE, 2 * 8 * SCALE, null);
+                }
+                if (moveable.getYs() > 0) {
+                    BufferedImage eyes = spriteMap.get("ghost_eyes_down");
+                    g.drawImage(eyes, (int) (moveable.getX(now) * 8 * SCALE), (int) (moveable.getY(now) * 8 * SCALE), 2 * 8 * SCALE, 2 * 8 * SCALE, null);
+                }
             }
         });
     }
