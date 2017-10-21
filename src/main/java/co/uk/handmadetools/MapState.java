@@ -11,6 +11,8 @@ public class MapState {
 
     private static final String[][] map = new String[Constants.X_SIZE][Constants.Y_SIZE];
 
+    private static final String WALL = "abcdefghijklmnopqrstuvwxyz1234567";
+
     public MapState() throws IOException, URISyntaxException {
         loadMap();
     }
@@ -21,9 +23,20 @@ public class MapState {
         List<String> lines = Files.readAllLines(file.toPath());
         for (int y = 0; y < Constants.Y_SIZE; y++) {
             for (int x = 0; x < Constants.X_SIZE; x++) {
-                map[x][y] = lines.get(y).substring(x, x + 1);
+                if (x < lines.get(y).length()) {
+                    map[x][y] = lines.get(y).substring(x, x + 1);
+                } else {
+                    map[x][y] = " ";
+                }
             }
         }
+    }
+
+    public String getWallType(int x, int y) {
+        if (isWall(x, y)) {
+            return map[x][y];
+        }
+        return " ";
     }
 
     public boolean isWall(int x, int y) {
@@ -39,6 +52,38 @@ public class MapState {
         if (y >= Constants.Y_SIZE) {
             return false;
         }
-        return "W".equals(map[x][y]);
+        return WALL.contains(map[x][y]);
+    }
+
+    public boolean isPill(int x, int y) {
+        if (x < 0) {
+            return false;
+        }
+        if (y < 0) {
+            return false;
+        }
+        if (x >= Constants.X_SIZE) {
+            return false;
+        }
+        if (y >= Constants.Y_SIZE) {
+            return false;
+        }
+        return ".".equals(map[x][y]);
+    }
+
+    public boolean isPowerPill(int x, int y) {
+        if (x < 0) {
+            return false;
+        }
+        if (y < 0) {
+            return false;
+        }
+        if (x >= Constants.X_SIZE) {
+            return false;
+        }
+        if (y >= Constants.Y_SIZE) {
+            return false;
+        }
+        return "O".equals(map[x][y]);
     }
 }

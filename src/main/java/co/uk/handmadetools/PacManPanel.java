@@ -3,13 +3,12 @@ package co.uk.handmadetools;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.Map;
 
 public class PacManPanel extends JPanel {
 
     private MapState state;
-    private Map<String, BufferedImage> spriteMap;
-
+    private SpriteLoader spriteMap;
+    private static final int SCALE = 3;
 
     public PacManPanel() {
         super.setBackground(Color.BLACK);
@@ -25,40 +24,34 @@ public class PacManPanel extends JPanel {
 
         for (int y = 0; y < Constants.Y_SIZE; y++) {
             for (int x = 0; x < Constants.X_SIZE; x++) {
-                StringBuffer walls = new StringBuffer();
-                walls.append(state.isWall(x - 1, y - 1) ? "W" : " ");
-                walls.append(state.isWall(x, y - 1) ? "W" : " ");
-                walls.append(state.isWall(x + 1, y - 1) ? "W" : " ");
-                walls.append(state.isWall(x - 1, y) ? "W" : " ");
-                walls.append(state.isWall(x, y) ? "W" : " ");
-                walls.append(state.isWall(x + 1, y) ? "W" : " ");
-                walls.append(state.isWall(x - 1, y + 1) ? "W" : " ");
-                walls.append(state.isWall(x, y + 1) ? "W" : " ");
-                walls.append(state.isWall(x + 1, y + 1) ? "W" : " ");
+//                g.drawRect(x * 24, y * 24, 24, 24);
 
-                String spriteName = null;
-                String wallLookup = walls.toString();
-                if ("    WW W ".equals(wallLookup)) {
-                    spriteName = "wall_thin_nw";
+                String wall = state.getWallType(x, y);
+
+                BufferedImage sprite = spriteMap.get(wall);
+                if (sprite != null) {
+                    g.drawImage(sprite, x * 8 * SCALE, y * 8 * SCALE, 8 * SCALE, 8 * SCALE, null);
                 }
-                if ("   WW  W ".equals(wallLookup)) {
-                    spriteName = "wall_thin_ne";
+                if (state.isPill(x, y)) {
+                    BufferedImage pill = spriteMap.get("pill");
+                    g.drawImage(pill, x * 8 * SCALE, y * 8 * SCALE, 8 * SCALE, 8 * SCALE, null);
                 }
-                if (" W  WW   ".equals(wallLookup)) {
-                    spriteName = "wall_thin_sw";
-                }
-                if (" W WW    ".equals(wallLookup)) {
-                    spriteName = "wall_thin_se";
-                }
-                if (spriteName != null) {
-                    BufferedImage sprite = spriteMap.get(spriteName);
-                    g.drawImage(sprite, x * 24, y * 24, null);
+                if (state.isPowerPill(x, y)) {
+                    BufferedImage pill = spriteMap.get("power_pill");
+                    g.drawImage(pill, x * 8 * SCALE, y * 8 * SCALE, 8 * SCALE, 8 * SCALE, null);
                 }
             }
         }
+
+        float ghostX = 13;
+        float ghostY = 10.5f;
+        BufferedImage pill = spriteMap.get("ghost_1");
+        g.drawImage(pill, (int)(ghostX * 8 * SCALE), (int)(ghostY * 8 * SCALE), 2 * 8 * SCALE, 2 * 8 * SCALE, null);
+        BufferedImage eyes = spriteMap.get("ghost_eyes_left");
+        g.drawImage(eyes, (int)(ghostX * 8 * SCALE), (int)(ghostY * 8 * SCALE), 2 * 8 * SCALE, 2 * 8 * SCALE, null);
     }
 
-    public void setSpriteMap(Map<String, BufferedImage> spriteMap) {
+    public void setSpriteMap( SpriteLoader spriteMap) {
         this.spriteMap = spriteMap;
     }
 }
