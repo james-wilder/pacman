@@ -1,53 +1,38 @@
 package co.uk.handmadetools;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JPanel;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.time.Instant;
+import java.util.List;
 
 public class PacManPanel extends JPanel {
 
-    private MapState state;
     private SpriteLoader spriteMap;
     private static final int SCALE = 3;
-    private GameState gameState;
+    private GameEngine gameEngine;
 
-    public PacManPanel() {
+    public PacManPanel(GameEngine gameEngine) {
         super.setBackground(Color.BLACK);
-
-        Runnable runnable = () -> {
-            while (true) {
-                invalidate();
-                repaint();
-                revalidate();
-                try {
-                    Thread.sleep(10);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-
-        Thread thread = new Thread(runnable);
-        thread.start();
-    }
-
-    public void setState(MapState state) {
-        this.state = state;
+        this.gameEngine = gameEngine;
     }
 
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponents(g);
 
+        Instant now = Instant.now();
+
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, getWidth(), getHeight());
 
-        GameState drawGameState = gameState;
-        Instant now = Instant.now();
+        MapState state = gameEngine.getMapState();
+        List<Drawable> drawables = gameEngine.getDrawables(now);
 
         for (int y = 0; y < Constants.Y_SIZE; y++) {
             for (int x = 0; x < Constants.X_SIZE; x++) {
+                g.setColor(Color.GRAY);
 //                g.drawRect(x * 24, y * 24, 24, 24);
 
                 String wall = state.getWallType(x, y);
@@ -67,25 +52,27 @@ public class PacManPanel extends JPanel {
             }
         }
 
-        drawGameState.getMoveables().forEach(moveable -> {
-            BufferedImage pill = spriteMap.get(moveable.getName());
-            g.drawImage(pill, (int)(moveable.getX(now) * 8 * SCALE), (int)(moveable.getY(now) * 8 * SCALE), 2 * 8 * SCALE, 2 * 8 * SCALE, null);
+        drawables.forEach(moveable -> {
+            int gx = (int) (moveable.getX() * 8 * SCALE - 4 * SCALE);
+            int gy = (int) (moveable.getY() * 8 * SCALE - 4 * SCALE);
+            BufferedImage image = spriteMap.get(moveable.getName());
+            g.drawImage(image, gx, gy, 2 * 8 * SCALE, 2 * 8 * SCALE, null);
             if (moveable.getName().startsWith("ghost")) {
-                if (moveable.getXs() < 0) {
-                    BufferedImage eyes = spriteMap.get("ghost_eyes_left");
-                    g.drawImage(eyes, (int) (moveable.getX(now) * 8 * SCALE), (int) (moveable.getY(now) * 8 * SCALE), 2 * 8 * SCALE, 2 * 8 * SCALE, null);
+                BufferedImage eyes = null;
+                if (moveable.getXFacing() < 0) {
+                    eyes = spriteMap.get("ghost_eyes_left");
                 }
-                if (moveable.getXs() > 0) {
-                    BufferedImage eyes = spriteMap.get("ghost_eyes_right");
-                    g.drawImage(eyes, (int) (moveable.getX(now) * 8 * SCALE), (int) (moveable.getY(now) * 8 * SCALE), 2 * 8 * SCALE, 2 * 8 * SCALE, null);
+                if (moveable.getXFacing() > 0) {
+                    eyes = spriteMap.get("ghost_eyes_right");
                 }
-                if (moveable.getYs() < 0) {
-                    BufferedImage eyes = spriteMap.get("ghost_eyes_up");
-                    g.drawImage(eyes, (int) (moveable.getX(now) * 8 * SCALE), (int) (moveable.getY(now) * 8 * SCALE), 2 * 8 * SCALE, 2 * 8 * SCALE, null);
+                if (moveable.getYFacing() < 0) {
+                    eyes = spriteMap.get("ghost_eyes_up");
                 }
-                if (moveable.getYs() > 0) {
-                    BufferedImage eyes = spriteMap.get("ghost_eyes_down");
-                    g.drawImage(eyes, (int) (moveable.getX(now) * 8 * SCALE), (int) (moveable.getY(now) * 8 * SCALE), 2 * 8 * SCALE, 2 * 8 * SCALE, null);
+                if (moveable.getYFacing() > 0) {
+                    eyes = spriteMap.get("ghost_eyes_down");
+                }
+                if (eyes != null) {
+                    g.drawImage(eyes, gx, gy, 2 * 8 * SCALE, 2 * 8 * SCALE, null);
                 }
             }
         });
@@ -95,7 +82,4 @@ public class PacManPanel extends JPanel {
         this.spriteMap = spriteMap;
     }
 
-    public void update(GameState gameState) {
-        this.gameState = gameState;
-    }
 }

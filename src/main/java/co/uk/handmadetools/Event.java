@@ -2,8 +2,18 @@ package co.uk.handmadetools;
 
 import java.time.Instant;
 
-public class Moveable {
+public class Event {
 
+    public Type getType() {
+        return type;
+    }
+
+    public enum Type {
+        CREATED,
+        CHANGE_DIRECTION
+    }
+
+    private final Type type;
     private final float x;
     private final float y;
     private final float xs;
@@ -11,13 +21,18 @@ public class Moveable {
     private final String name;
     private final Instant created;
 
-    public Moveable(float x, float y, float xs, float ys, String name, Instant created) {
+    public Event(Type type, float x, float y, float xs, float ys, String name, Instant created) {
+        this.type = type;
         this.x = x;
         this.y = y;
         this.xs = xs;
         this.ys = ys;
         this.name = name;
         this.created = created;
+    }
+
+    public Instant getCreated() {
+        return created;
     }
 
     public float getX() {
@@ -38,14 +53,6 @@ public class Moveable {
 
     public String getName() {
         return name;
-    }
-
-    public float getX(Instant i) {
-        return x + xs * 0.001f * (i.toEpochMilli() - created.toEpochMilli());
-    }
-
-    public float getY(Instant i) {
-        return y + ys * 0.001f * (i.toEpochMilli() - created.toEpochMilli());
     }
 
 }

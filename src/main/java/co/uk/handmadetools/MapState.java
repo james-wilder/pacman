@@ -39,6 +39,22 @@ public class MapState {
         return " ";
     }
 
+    public boolean isGhostDoor(int x, int y) {
+        if (x < 0) {
+            return false;
+        }
+        if (y < 0) {
+            return false;
+        }
+        if (x >= Constants.X_SIZE) {
+            return false;
+        }
+        if (y >= Constants.Y_SIZE) {
+            return false;
+        }
+        return "7".equals(map[x][y]);
+    }
+
     public boolean isWall(int x, int y) {
         if (x < 0) {
             return false;

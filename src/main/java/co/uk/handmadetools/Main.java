@@ -20,7 +20,7 @@ public class Main {
         main.run();
     }
 
-    public void run() {
+    public void run() throws IOException, URISyntaxException {
         System.out.println("Load sprites");
 
         GameEngine gameEngine = new GameEngine();
@@ -28,14 +28,31 @@ public class Main {
         PacManFrame frame = new PacManFrame();
         frame.setLocation(200, 200);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        PacManPanel panel = new PacManPanel();
+        PacManPanel panel = new PacManPanel(gameEngine);
         panel.setPreferredSize(new Dimension(24 * Constants.X_SIZE, 24 * Constants.Y_SIZE));
         panel.setSpriteMap(new SpriteLoader());
-        panel.setState(map);
-        panel.update(gameEngine.getGameState());
         frame.getContentPane().add(panel, BorderLayout.CENTER);
         frame.pack();
         frame.setVisible(true);
+
+        gameEngine.start();
+
+        Runnable runnable = () -> {
+            while (true) {
+                panel.invalidate();
+                panel.repaint();
+                panel.revalidate();
+                try {
+                    Thread.sleep(20);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        Thread thread = new Thread(runnable);
+        thread.start();
+
     }
 
 }
