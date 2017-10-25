@@ -1,4 +1,10 @@
-package co.uk.handmadetools;
+package co.uk.handmadetools.ui;
+
+import co.uk.handmadetools.model.Constants;
+import co.uk.handmadetools.model.Drawable;
+import co.uk.handmadetools.GameEngine;
+import co.uk.handmadetools.model.MapState;
+import co.uk.handmadetools.graphics.SpriteLoader;
 
 import javax.swing.JPanel;
 import java.awt.Color;

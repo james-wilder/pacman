@@ -1,5 +1,11 @@
 package co.uk.handmadetools;
 
+import co.uk.handmadetools.graphics.SpriteLoader;
+import co.uk.handmadetools.model.Constants;
+import co.uk.handmadetools.model.MapState;
+import co.uk.handmadetools.ui.PacManFrame;
+import co.uk.handmadetools.ui.PacManPanel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;

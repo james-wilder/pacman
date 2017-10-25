@@ -1,4 +1,4 @@
-package co.uk.handmadetools;
+package co.uk.handmadetools.model;
 
 import java.io.File;
 import java.io.IOException;

@@ -1,5 +1,9 @@
 package co.uk.handmadetools;
 
+import co.uk.handmadetools.model.Drawable;
+import co.uk.handmadetools.model.Event;
+import co.uk.handmadetools.model.MapState;
+
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.time.Duration;
@@ -9,8 +13,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static co.uk.handmadetools.Event.Type.CHANGE_DIRECTION;
-import static co.uk.handmadetools.Event.Type.CREATED;
+import static co.uk.handmadetools.model.Event.Type.CHANGE_DIRECTION;
+import static co.uk.handmadetools.model.Event.Type.CREATED;
 
 public class GameEngine {
 

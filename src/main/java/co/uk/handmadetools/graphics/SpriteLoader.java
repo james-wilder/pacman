@@ -1,4 +1,4 @@
-package co.uk.handmadetools;
+package co.uk.handmadetools.graphics;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

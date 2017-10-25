@@ -1,4 +1,4 @@
-package co.uk.handmadetools;
+package co.uk.handmadetools.model;
 
 public class Constants {
 
