@@ -48,36 +48,55 @@ public class GameEngine {
                     .filter(event -> event.getName().equals(name))
                     .reduce((a, b) -> b);
 
-            if ("pacman".equals(name)) {
-
-            } else if (optEvent.isPresent()) {
+            if (optEvent.isPresent()) {
                 Event event = optEvent.get();
 
                 Duration duration = Duration.between(event.getCreated(), now);
 
-                // Slight bodge, otherwise we fire repeatedly for each boundary
-                if (duration.toMillis() > 100) {
-                    float x1 = getCoOrd(event.getX(), event.getXs(), event.getCreated(), lastInstant);
-                    float y1 = getCoOrd(event.getY(), event.getYs(), event.getCreated(), lastInstant);
-                    float x2 = getCoOrd(event.getX(), event.getXs(), event.getCreated(), now);
-                    float y2 = getCoOrd(event.getY(), event.getYs(), event.getCreated(), now);
+                float x1 = getCoOrd(event.getX(), event.getXs(), event.getCreated(), lastInstant);
+                float y1 = getCoOrd(event.getY(), event.getYs(), event.getCreated(), lastInstant);
+                float x2 = getCoOrd(event.getX(), event.getXs(), event.getCreated(), now);
+                float y2 = getCoOrd(event.getY(), event.getYs(), event.getCreated(), now);
 
-                    float v = Math.abs(event.getXs()) + Math.abs(event.getYs());
+                float v = Math.abs(event.getXs()) + Math.abs(event.getYs());
 
+                int xGrid = Math.round(x2);
+                int yGrid = Math.round(y2);
+
+                int intXd = (int) Math.signum(event.getXs());
+                int intYd = (int) Math.signum(event.getYs());
+
+                float xFloor1 = (float) Math.floor(x1);
+                float xFloor2 = (float) Math.floor(x2);
+                float yFloor1 = (float) Math.floor(y1);
+                float yFloor2 = (float) Math.floor(y2);
+
+                if ("pacman".equals(name)) {
+                    if (((Math.round(x1) != event.getX()) || (Math.round(y1) != event.getY())) &&
+                            ((xFloor1 != xFloor2) || (yFloor1 != yFloor2))) {
+                        boolean canLeft = canGo(xGrid, yGrid, -1, 0);
+                        boolean canRight = canGo(xGrid, yGrid, 1, 0);
+                        boolean canUp = canGo(xGrid, yGrid, -1, 0);
+                        boolean canDown = canGo(xGrid, yGrid, 1, 0);
+
+                        float boundaryX = (xFloor1 != xFloor2) ? xGrid : x1;
+                        float boundaryY = (yFloor1 != yFloor2) ? yGrid : y1;
+
+                        if (!canRight) {
+                            float partOfTimeStep;
+                            if (x2 != x1) {
+                                partOfTimeStep = Math.abs((event.getX() - boundaryX) / (x2 - event.getX()));
+                            } else {
+                                partOfTimeStep = Math.abs((event.getY() - boundaryY) / (y2 - event.getY()));
+                            }
+                            Instant newEventTime = event.getCreated().plusNanos((long) (duration.toNanos() * partOfTimeStep));
+                            events.add(new Event(CHANGE_DIRECTION, boundaryX, boundaryY, 0, 0, event.getName(), newEventTime));
+                        }
+                    }
+                } else {
                     boolean goLeft = false;
                     boolean goRight = false;
                     boolean do180 = false;
-
-                    int intXd = (int) Math.signum(event.getXs());
-                    int intYd = (int) Math.signum(event.getYs());
-
-                    float xFloor1 = (float) Math.floor(x1);
-                    float xFloor2 = (float) Math.floor(x2);
-                    float yFloor1 = (float) Math.floor(y1);
-                    float yFloor2 = (float) Math.floor(y2);
-
-                    int xGrid = Math.round(x2);
-                    int yGrid = Math.round(y2);
 
                     float boundaryX = 0;    // because stupid IDE warnings
                     float boundaryY = 0;    // because stupid IDE warnings

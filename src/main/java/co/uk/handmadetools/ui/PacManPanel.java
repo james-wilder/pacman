@@ -1,17 +1,16 @@
 package co.uk.handmadetools.ui;
 
+import co.uk.handmadetools.GameEngine;
+import co.uk.handmadetools.graphics.SpriteLoader;
 import co.uk.handmadetools.model.Constants;
 import co.uk.handmadetools.model.Drawable;
-import co.uk.handmadetools.GameEngine;
 import co.uk.handmadetools.model.MapState;
-import co.uk.handmadetools.graphics.SpriteLoader;
 
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.time.Instant;
-import java.util.Comparator;
 import java.util.List;
 
 public class PacManPanel extends JPanel {
@@ -60,7 +59,7 @@ public class PacManPanel extends JPanel {
         }
 
         drawables.stream()
-                .sorted(Comparator.comparing(Drawable::getName))
+                .sorted((m1, m2) -> m2.getName().compareTo(m1.getName()))
                 .forEach(moveable -> {
                     int gx = (int) (moveable.getX() * 8 * SCALE - 4 * SCALE);
                     int gy = (int) (moveable.getY() * 8 * SCALE - 4 * SCALE);
