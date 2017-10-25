@@ -75,7 +75,8 @@ public class GameEngine {
                     int yGrid = Math.round(y2);
 
                     // cross boundary
-                    if ((xFloor1 != xFloor2) || (yFloor1 != yFloor2)) {
+                    if (((Math.round(x1) != event.getX()) || (Math.round(y1) != event.getY())) &&
+                            ((xFloor1 != xFloor2) || (yFloor1 != yFloor2))) {
                         // System.out.println(now);
 
                         // System.out.println("xGrid=" + xGrid);
