@@ -19,7 +19,7 @@ import static co.uk.handmadetools.model.Event.Type.CREATED;
 public class GameEngine {
 
     float SPEED = 1.0f;
-//    float SPEED = 0.3f;
+//    float SPEED = 0.4f;
 
     private MapState mapState = new MapState(); // TODO: update with events
     private List<Event> events = new ArrayList<>();
@@ -30,10 +30,10 @@ public class GameEngine {
 
     public void start() {
         Instant created = Instant.now();
-        events.add(new Event(CREATED, 13.5f, 11.0f, -4.0f, 0.0f, "ghost_1", created));
-        events.add(new Event(CREATED, 11.0f, 13.5f, 0.0f, -3.0f, "ghost_2", created));
-        events.add(new Event(CREATED, 13.0f, 13.5f, 0.0f, 3.0f, "ghost_3", created));
-        events.add(new Event(CREATED, 15.0f, 13.5f, 0.0f, -3.0f, "ghost_4", created));
+        events.add(new Event(CREATED, 13.5f, 11f, -4.0f, 0.0f, "ghost_1", created));
+        events.add(new Event(CREATED, 11.5f, 14f, 0.0f, -3.0f, "ghost_2", created));
+        events.add(new Event(CREATED, 13.5f, 14f, 0.0f, 3.0f, "ghost_3", created));
+        events.add(new Event(CREATED, 15.5f, 14f, 0.0f, -3.0f, "ghost_4", created));
 //        events.add(new Event(CHANGE_DIRECTION, 9.0f, 10.5f, 0.0f, 4.0f, "ghost_1", created.plusSeconds(1)));
     }
 
@@ -62,6 +62,7 @@ public class GameEngine {
 
                     boolean goLeft = false;
                     boolean goRight = false;
+                    boolean do180 = false;
 
                     int intXd = (int) Math.signum(event.getXs());
                     int intYd = (int) Math.signum(event.getYs());
@@ -74,13 +75,52 @@ public class GameEngine {
                     int xGrid = Math.round(x2);
                     int yGrid = Math.round(y2);
 
+                    float boundaryX = 0;    // because stupid IDE warnings
+                    float boundaryY = 0;    // because stupid IDE warnings
+
                     // cross boundary
-                    if (((Math.round(x1) != event.getX()) || (Math.round(y1) != event.getY())) &&
+                    if (isInGhostHome(x1, y1)) {
+                        if (intXd == 0) {
+                            if ((y1 > 13.5f) && (y2 <= 13.5f)) {
+                                boundaryX = x1;
+                                boundaryY = 13.5f;
+                                if (x1 != 13.5f) {
+                                    if ((Math.random() < 0.5f)) {
+                                        do180 = true;
+                                    } else {
+                                        if (x2 < 13.5f) {
+                                            goRight = true;
+                                        } else {
+                                            goLeft = true;
+                                        }
+                                    }
+                                }
+                            } else if ((y1 < 14.5f) && (y2 >= 14.5f)) {
+                                boundaryX = x1;
+                                boundaryY = 14.5f;
+                                do180 = true;
+                            }
+                        } else {
+                            if (((x1 <= 13.5f) && (x2 >= 13.5)) ||
+                                    ((x2 <= 13.5f) && (x1 >= 13.5))) {
+                                boundaryX = 13.5f;
+                                boundaryY = y1;
+                                if (intXd < 0) {
+                                    goRight = true;
+                                } else {
+                                    goLeft = true;
+                                }
+                            }
+                        }
+                    } else if (((Math.round(x1) != event.getX()) || (Math.round(y1) != event.getY())) &&
                             ((xFloor1 != xFloor2) || (yFloor1 != yFloor2))) {
                         // System.out.println(now);
 
                         // System.out.println("xGrid=" + xGrid);
                         // System.out.println("yGrid=" + yGrid);
+
+                        boundaryX = (xFloor1 != xFloor2) ? xGrid : x1;
+                        boundaryY = (yFloor1 != yFloor2) ? yGrid : y1;
 
                         boolean canLeft = canGo(xGrid, yGrid, intYd, -intXd);
                         boolean canForward = canGo(xGrid, yGrid, intXd, intYd);
@@ -90,8 +130,7 @@ public class GameEngine {
                         // System.out.println("canForward=" + canForward);
                         // System.out.println("canRight=" + canRight);
 
-                        boolean turn = !canForward || ((Math.random() < 0.5) && (canLeft || canRight));
-                        if (turn) {
+                        if (!canForward || ((Math.random() < 0.5) && (canLeft || canRight))) {
                             if (!canLeft || (canRight && (Math.random() < 0.5))) {
                                 goRight = true;
                             } else {
@@ -102,27 +141,31 @@ public class GameEngine {
 
                     float newXs;
                     float newYs;
-                    if (goLeft || goRight) {
+                    if (goLeft || goRight || do180) {
                         if (goRight) {
                             System.out.println("Right");
-                            newXs = v * -(float) intYd;
-                            newYs = v * (float) intXd;
-                        } else {
+                            newXs = v * - intYd;
+                            newYs = v * intXd;
+                        } else if (goLeft) {
                             System.out.println("Left");
-                            newXs = v * (float) intYd;
-                            newYs = v * -(float) intXd;
+                            newXs = v * intYd;
+                            newYs = v * - intXd;
+                        } else {
+                            System.out.println("180");
+                            newXs = - event.getXs();
+                            newYs = - event.getYs();
                         }
 
-                        // System.out.println(String.format("%.2f %.2f %.2f %.2f ", event.getXs(), event.getYs(), newXs, newYs));
+                        System.out.println(String.format("%.2f %.2f %.2f %.2f ", event.getXs(), event.getYs(), newXs, newYs));
 
                         float partOfTimeStep;
                         if (x2 != x1) {
-                            partOfTimeStep = Math.abs((event.getX() - xGrid) / (x2 - event.getX()));
+                            partOfTimeStep = Math.abs((event.getX() - boundaryX) / (x2 - event.getX()));
                         } else {
-                            partOfTimeStep = Math.abs((event.getY() - yGrid) / (y2 - event.getY()));
+                            partOfTimeStep = Math.abs((event.getY() - boundaryY) / (y2 - event.getY()));
                         }
                         Instant newEventTime = event.getCreated().plusNanos((long) (duration.toNanos() * partOfTimeStep));
-                        events.add(new Event(CHANGE_DIRECTION, xGrid, yGrid, newXs, newYs, event.getName(), newEventTime));
+                        events.add(new Event(CHANGE_DIRECTION, boundaryX, boundaryY, newXs, newYs, event.getName(), newEventTime));
                     }
                 }
             }
@@ -130,12 +173,17 @@ public class GameEngine {
         this.lastInstant = now;
     }
 
+    private boolean isInGhostHome(float x, float y) {
+        return ((x >= 11) && (x <= 16) && (y >= 12f) && (y <=15));
+//        return false;
+    }
+
     private boolean canGo(int x, int y, int xs, int ys) {
         if (!mapState.isWall(x + xs, y + ys)) {
             return true;
         }
-//        return false;
-        return mapState.isGhostDoor(x + xs, y + ys) && (ys < 0);
+        return false;
+//        return mapState.isGhostDoor(x + xs, y + ys) && (ys < 0);
     }
 
     public List<Drawable> getDrawables(Instant now) {

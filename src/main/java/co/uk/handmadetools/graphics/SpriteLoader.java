@@ -92,6 +92,14 @@ public class SpriteLoader {
                                 Color c = new Color(255, 184, 222);
                                 image.setRGB(x, y, c.getRGB());
                             }
+                            if ("O".equals(rgbString)) {
+                                Color c = new Color(255, 192, 0);
+                                image.setRGB(x, y, c.getRGB());
+                            }
+                            if ("C".equals(rgbString)) {
+                                Color c = new Color(0, 192, 255);
+                                image.setRGB(x, y, c.getRGB());
+                            }
                         }
                     }
                 }
