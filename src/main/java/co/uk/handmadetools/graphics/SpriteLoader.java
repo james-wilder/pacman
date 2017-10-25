@@ -61,6 +61,7 @@ public class SpriteLoader {
         loadSprite("ghost_eyes_right", 16, 16);
         loadSprite("ghost_eyes_up", 16, 16);
         loadSprite("ghost_eyes_down", 16, 16);
+        loadSprite("pacman", 16, 16);
     }
 
     public BufferedImage get(String filename) {

@@ -35,6 +35,7 @@ public class GameEngine {
         events.add(new Event(CREATED, 13.5f, 14f, 0.0f, 3.0f, "ghost_3", created));
         events.add(new Event(CREATED, 15.5f, 14f, 0.0f, -3.0f, "ghost_4", created));
 //        events.add(new Event(CHANGE_DIRECTION, 9.0f, 10.5f, 0.0f, 4.0f, "ghost_1", created.plusSeconds(1)));
+        events.add(new Event(CREATED, 13.5f, 23f, 3.0f, 0.0f, "pacman", created));
     }
 
     private void update(Instant now) {
@@ -46,7 +47,10 @@ public class GameEngine {
             Optional<Event> optEvent = events.stream()
                     .filter(event -> event.getName().equals(name))
                     .reduce((a, b) -> b);
-            if (optEvent.isPresent()) {
+
+            if ("pacman".equals(name)) {
+
+            } else if (optEvent.isPresent()) {
                 Event event = optEvent.get();
 
                 Duration duration = Duration.between(event.getCreated(), now);

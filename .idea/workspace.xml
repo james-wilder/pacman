@@ -2,21 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f7343a81-365e-4510-8d6e-bfabe9969997" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/co/uk/handmadetools/GameEngine.class" afterPath="$PROJECT_DIR$/target/classes/co/uk/handmadetools/GameEngine.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/co/uk/handmadetools/graphics/SpriteLoader.class" afterPath="$PROJECT_DIR$/target/classes/co/uk/handmadetools/graphics/SpriteLoader.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/co/uk/handmadetools/GameEngine.java" afterPath="$PROJECT_DIR$/src/main/java/co/uk/handmadetools/GameEngine.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/co/uk/handmadetools/graphics/SpriteLoader.java" afterPath="$PROJECT_DIR$/src/main/java/co/uk/handmadetools/graphics/SpriteLoader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/sprites/ghost_2.txt" afterPath="$PROJECT_DIR$/src/main/resources/sprites/ghost_2.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/sprites/ghost_4.txt" afterPath="$PROJECT_DIR$/src/main/resources/sprites/ghost_4.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/sprites/ghost_eyes_down.txt" afterPath="$PROJECT_DIR$/src/main/resources/sprites/ghost_eyes_down.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/sprites/ghost_eyes_right.txt" afterPath="$PROJECT_DIR$/src/main/resources/sprites/ghost_eyes_right.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/sprites/ghost_eyes_up.txt" afterPath="$PROJECT_DIR$/src/main/resources/sprites/ghost_eyes_up.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/sprites/ghost_2.txt" afterPath="$PROJECT_DIR$/target/classes/sprites/ghost_2.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/sprites/ghost_4.txt" afterPath="$PROJECT_DIR$/target/classes/sprites/ghost_4.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/sprites/ghost_eyes_down.txt" afterPath="$PROJECT_DIR$/target/classes/sprites/ghost_eyes_down.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/sprites/ghost_eyes_right.txt" afterPath="$PROJECT_DIR$/target/classes/sprites/ghost_eyes_right.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/sprites/ghost_eyes_up.txt" afterPath="$PROJECT_DIR$/target/classes/sprites/ghost_eyes_up.txt" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -38,23 +25,40 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="GameEngine.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="GameEngine.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/co/uk/handmadetools/GameEngine.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="36" column="30" lean-forward="true" selection-start-line="36" selection-start-column="30" selection-end-line="36" selection-end-column="30" />
+            <state relative-caret-position="136">
+              <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SpriteLoader.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="SpriteLoader.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/co/uk/handmadetools/graphics/SpriteLoader.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="601">
-              <caret line="99" column="63" lean-forward="false" selection-start-line="99" selection-start-column="63" selection-end-line="99" selection-end-column="63" />
+            <state relative-caret-position="754">
+              <caret line="63" column="26" lean-forward="false" selection-start-line="63" selection-start-column="26" selection-end-line="63" selection-end-column="26" />
               <folding />
             </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pacman.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/sprites/pacman.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="spritemap-384.png" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/spritemap-384.png">
+          <provider selected="true" editor-type-id="images">
+            <state />
           </provider>
         </entry>
       </file>
@@ -115,7 +119,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/resources/sprites/g.txt" />
         <option value="$PROJECT_DIR$/src/main/resources/sprites/h.txt" />
         <option value="$PROJECT_DIR$/src/main/resources/sprites/j.txt" />
         <option value="$PROJECT_DIR$/src/main/resources/sprites/i.txt" />
@@ -161,11 +164,12 @@
         <option value="$PROJECT_DIR$/src/main/resources/sprites/ghost_eyes_right.txt" />
         <option value="$PROJECT_DIR$/src/main/resources/sprites/ghost_eyes_down.txt" />
         <option value="$PROJECT_DIR$/src/main/resources/sprites/ghost_eyes_up.txt" />
-        <option value="$PROJECT_DIR$/src/main/java/co/uk/handmadetools/GameEngine.java" />
         <option value="$PROJECT_DIR$/src/main/resources/sprites/ghost_4.txt" />
         <option value="$PROJECT_DIR$/src/main/resources/sprites/ghost_3.txt" />
         <option value="$PROJECT_DIR$/src/main/resources/sprites/ghost_2.txt" />
         <option value="$PROJECT_DIR$/src/main/java/co/uk/handmadetools/graphics/SpriteLoader.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/sprites/pacman.txt" />
+        <option value="$PROJECT_DIR$/src/main/java/co/uk/handmadetools/GameEngine.java" />
       </list>
     </option>
   </component>
@@ -458,14 +462,14 @@
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
   <component name="RecentsManager">
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="co.uk.handmadetools" />
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\projects\pacman\src\main\resources\sprites" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="co.uk.handmadetools" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\projects\pacman\src\main\resources\sprites" />
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="co.uk.handmadetools" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -776,13 +780,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/resources/sprites/i.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/sprites/k.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
@@ -979,11 +976,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/spritemap-384.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/sprites/ghost_1.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -1113,14 +1105,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/co/uk/handmadetools/GameEngine.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="36" column="30" lean-forward="true" selection-start-line="36" selection-start-column="30" selection-end-line="36" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/sprites/ghost_3.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -1139,8 +1123,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/co/uk/handmadetools/graphics/SpriteLoader.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="601">
-          <caret line="99" column="63" lean-forward="false" selection-start-line="99" selection-start-column="63" selection-end-line="99" selection-end-column="63" />
+        <state relative-caret-position="754">
+          <caret line="63" column="26" lean-forward="false" selection-start-line="63" selection-start-column="26" selection-end-line="63" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/spritemap-384.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/sprites/pacman.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/co/uk/handmadetools/GameEngine.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
           <folding />
         </state>
       </provider>
