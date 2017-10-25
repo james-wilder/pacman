@@ -15,9 +15,11 @@ import static co.uk.handmadetools.Event.Type.CREATED;
 public class GameEngine {
 
     float SPEED = 1.0f;
+//    float SPEED = 0.3f;
 
     private MapState mapState = new MapState(); // TODO: update with events
     private List<Event> events = new ArrayList<>();
+    private Instant lastInstant = Instant.now();
 
     public GameEngine() throws IOException, URISyntaxException {
     }
@@ -42,113 +44,92 @@ public class GameEngine {
                     .reduce((a, b) -> b);
             if (optEvent.isPresent()) {
                 Event event = optEvent.get();
-                float x1 = event.getX();
-                float y1 = event.getY();
-                float x2 = getCoOrd(event.getX(), event.getXs(), event.getCreated(), now);
-                float y2 = getCoOrd(event.getY(), event.getYs(), event.getCreated(), now);
 
-                float v = Math.abs(event.getXs()) + Math.abs(event.getYs());
+                Duration duration = Duration.between(event.getCreated(), now);
 
-                // cross x boundary
-                float xRound1 = Math.round(x1);
-                float xRound2 = Math.round(x2);
-                if (xRound1 != xRound2) {
-//                    float boundary = (xRound1 + xRound2) / 2.0f;
-                    float boundary = Math.round(xRound2);
+                // Slight bodge, otherwise we fire repeatedly for each boundary
+                if (duration.toMillis() > 100) {
+                    float x1 = getCoOrd(event.getX(), event.getXs(), event.getCreated(), lastInstant);
+                    float y1 = getCoOrd(event.getY(), event.getYs(), event.getCreated(), lastInstant);
+                    float x2 = getCoOrd(event.getX(), event.getXs(), event.getCreated(), now);
+                    float y2 = getCoOrd(event.getY(), event.getYs(), event.getCreated(), now);
 
-                    int xGrid = Math.round(boundary);
-                    int yGrid = Math.round(y2);
+                    float v = Math.abs(event.getXs()) + Math.abs(event.getYs());
+
+                    boolean goLeft = false;
+                    boolean goRight = false;
 
                     int intXd = (int) Math.signum(event.getXs());
                     int intYd = (int) Math.signum(event.getYs());
 
-                    boolean canLeft = canGo(xGrid, yGrid, intYd, - intXd);
-                    boolean canForward = canGo(xGrid, yGrid, intXd, intYd);
-                    boolean canRight = canGo(xGrid, yGrid, - intYd, intXd);
-
-                    System.out.println("canLeft=" + canLeft);
-                    System.out.println("canForward=" + canForward);
-                    System.out.println("canRight=" + canRight);
-
-                    float newXs = event.getXs();
-                    float newYs = event.getYs();
-
-                    boolean turn = !canForward || ((Math.random() < 0.5) && (canLeft || canRight));
-//                    boolean turn = !canForward;
-                    if (turn) {
-                        if (!canLeft || (canRight && (Math.random() < 0.5))) {
-                            System.out.println("Right");
-                            newXs = v * -(float)intYd;
-                            newYs = v * (float)intXd;
-                        } else {
-                            System.out.println("Left");
-                            newXs = v * (float)intYd;
-                            newYs = v * -(float)intXd;
-                        }
-                    }
-
-                    System.out.println(String.format("%.2f %.2f %.2f %.2f ", event.getXs(), event.getYs(), newXs, newYs));
-
-                    float partOfTimeStep = Math.abs((x1 - boundary) / (x2 - x1));
-                    Duration duration = Duration.between(event.getCreated(), now);
-                    Instant newEventTime = event.getCreated().plusNanos((long) (duration.toNanos() * partOfTimeStep));
-
-                    events.add(new Event(CHANGE_DIRECTION, boundary, y2, newXs, newYs, event.getName(), newEventTime));
-                }
-
-                // cross y boundary
-                float yRound1 = Math.round(y1);
-                float yRound2 = Math.round(y2);
-                if (yRound1 != yRound2) {
-//                    float boundary = (yRound1 + yRound2) / 2.0f;
-                    float boundary = Math.round(yRound2);
+                    float xFloor1 = (float) Math.floor(x1);
+                    float xFloor2 = (float) Math.floor(x2);
+                    float yFloor1 = (float) Math.floor(y1);
+                    float yFloor2 = (float) Math.floor(y2);
 
                     int xGrid = Math.round(x2);
-                    int yGrid = Math.round(boundary);
+                    int yGrid = Math.round(y2);
 
-                    int intXd = (int) Math.signum(event.getXs());
-                    int intYd = (int) Math.signum(event.getYs());
+                    // cross boundary
+                    if ((xFloor1 != xFloor2) || (yFloor1 != yFloor2)) {
+                        // System.out.println(now);
 
-                    boolean canLeft = canGo(xGrid, yGrid, intYd, - intXd);
-                    boolean canForward = canGo(xGrid, yGrid, intXd, intYd);
-                    boolean canRight = canGo(xGrid, yGrid, - intYd, intXd);
+                        // System.out.println("xGrid=" + xGrid);
+                        // System.out.println("yGrid=" + yGrid);
 
-                    System.out.println("canLeft=" + canLeft);
-                    System.out.println("canForward=" + canForward);
-                    System.out.println("canRight=" + canRight);
+                        boolean canLeft = canGo(xGrid, yGrid, intYd, -intXd);
+                        boolean canForward = canGo(xGrid, yGrid, intXd, intYd);
+                        boolean canRight = canGo(xGrid, yGrid, -intYd, intXd);
 
-                    float newXs = event.getXs();
-                    float newYs = event.getYs();
+                        // System.out.println("canLeft=" + canLeft);
+                        // System.out.println("canForward=" + canForward);
+                        // System.out.println("canRight=" + canRight);
 
-                    boolean turn = !canForward || ((Math.random() < 0.5) && (canLeft || canRight));
-//                    boolean turn = !canForward;
-                    if (turn) {
-                        if (!canLeft || (canRight && (Math.random() < 0.5))) {
-                            System.out.println("Right");
-                            newXs = v * -(float)intYd;
-                            newYs = v * (float)intXd;
-                        } else {
-                            System.out.println("Left");
-                            newXs = v * (float)intYd;
-                            newYs = v * -(float)intXd;
+                        boolean turn = !canForward || ((Math.random() < 0.5) && (canLeft || canRight));
+                        if (turn) {
+                            if (!canLeft || (canRight && (Math.random() < 0.5))) {
+                                goRight = true;
+                            } else {
+                                goLeft = true;
+                            }
                         }
                     }
 
-                    System.out.println(String.format("%.2f %.2f %.2f %.2f ", event.getXs(), event.getYs(), newXs, newYs));
+                    float newXs;
+                    float newYs;
+                    if (goLeft || goRight) {
+                        if (goRight) {
+                            System.out.println("Right");
+                            newXs = v * -(float) intYd;
+                            newYs = v * (float) intXd;
+                        } else {
+                            System.out.println("Left");
+                            newXs = v * (float) intYd;
+                            newYs = v * -(float) intXd;
+                        }
 
-                    float partOfTimeStep = Math.abs((y1 - boundary) / (y2 - y1));
-                    Duration duration = Duration.between(event.getCreated(), now);
-                    Instant newEventTime = event.getCreated().plusNanos((long) (duration.toNanos() * partOfTimeStep));
-                    events.add(new Event(CHANGE_DIRECTION, x2, boundary, newXs, newYs, event.getName(), newEventTime));
+                        // System.out.println(String.format("%.2f %.2f %.2f %.2f ", event.getXs(), event.getYs(), newXs, newYs));
+
+                        float partOfTimeStep;
+                        if (x2 != x1) {
+                            partOfTimeStep = Math.abs((event.getX() - xGrid) / (x2 - event.getX()));
+                        } else {
+                            partOfTimeStep = Math.abs((event.getY() - yGrid) / (y2 - event.getY()));
+                        }
+                        Instant newEventTime = event.getCreated().plusNanos((long) (duration.toNanos() * partOfTimeStep));
+                        events.add(new Event(CHANGE_DIRECTION, xGrid, yGrid, newXs, newYs, event.getName(), newEventTime));
+                    }
                 }
             }
         }
+        this.lastInstant = now;
     }
 
     private boolean canGo(int x, int y, int xs, int ys) {
         if (!mapState.isWall(x + xs, y + ys)) {
             return true;
         }
+//        return false;
         return mapState.isGhostDoor(x + xs, y + ys) && (ys < 0);
     }
 
