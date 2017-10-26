@@ -33,6 +33,7 @@ public class PacManPanel extends JPanel {
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, getWidth(), getHeight());
 
+        gameEngine = gameEngine.update(now);
         MapState state = gameEngine.getMapState();
         List<Drawable> drawables = gameEngine.getDrawables(now);
 

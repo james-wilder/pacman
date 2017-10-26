@@ -13,22 +13,28 @@ public class MapState {
 
     private static final String WALL = "abcdefghijklmnopqrstuvwxyz1234567";
 
-    public MapState() throws IOException, URISyntaxException {
+    public MapState() {
         loadMap();
     }
 
-    private void loadMap() throws URISyntaxException, IOException {
-        URL url = this.getClass().getClassLoader().getResource("map.txt");
-        File file = new File(url.toURI());
-        List<String> lines = Files.readAllLines(file.toPath());
-        for (int y = 0; y < Constants.Y_SIZE; y++) {
-            for (int x = 0; x < Constants.X_SIZE; x++) {
-                if (x < lines.get(y).length()) {
-                    map[x][y] = lines.get(y).substring(x, x + 1);
-                } else {
-                    map[x][y] = " ";
+    private void loadMap() {
+        try {
+            URL url = this.getClass().getClassLoader().getResource("map.txt");
+            File file = new File(url.toURI());
+            List<String> lines = Files.readAllLines(file.toPath());
+            for (int y = 0; y < Constants.Y_SIZE; y++) {
+                for (int x = 0; x < Constants.X_SIZE; x++) {
+                    if (x < lines.get(y).length()) {
+                        map[x][y] = lines.get(y).substring(x, x + 1);
+                    } else {
+                        map[x][y] = " ";
+                    }
                 }
             }
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

@@ -4,11 +4,10 @@ import co.uk.handmadetools.model.Drawable;
 import co.uk.handmadetools.model.Event;
 import co.uk.handmadetools.model.MapState;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -18,18 +17,19 @@ import static co.uk.handmadetools.model.Event.Type.CREATED;
 
 public class GameEngine {
 
-    float SPEED = 1.0f;
+    private static final List<String> NAMES = Arrays.asList("pacman", "ghost_1", "ghost_2", "ghost_3", "ghost_4");
+    private static final float SPEED = 1.0f;
 //    float SPEED = 0.4f;
 
-    private MapState mapState = new MapState(); // TODO: update with events
-    private List<Event> events = new ArrayList<>();
-    private Instant lastInstant = Instant.now();
+    private final MapState mapState; // TODO: update with events
+    private final List<Event> events;
+    private final Instant created;
 
-    public GameEngine() throws IOException, URISyntaxException {
-    }
+    public GameEngine() {
+        created = Instant.now();
+        mapState = new MapState();
+        events = new ArrayList<>();
 
-    public void start() {
-        Instant created = Instant.now();
         events.add(new Event(CREATED, 13.5f, 11f, -4.0f, 0.0f, "ghost_1", created));
         events.add(new Event(CREATED, 11.5f, 14f, 0.0f, -3.0f, "ghost_2", created));
         events.add(new Event(CREATED, 13.5f, 14f, 0.0f, 3.0f, "ghost_3", created));
@@ -38,12 +38,16 @@ public class GameEngine {
         events.add(new Event(CREATED, 13.5f, 23f, 3.0f, 0.0f, "pacman", created));
     }
 
-    private void update(Instant now) {
-        List<String> names = events.stream()
-                .map(Event::getName)
-                .collect(Collectors.toList());
+    public GameEngine(Instant now, List<Event> events, MapState mapState) {
+        this.mapState = mapState;
+        this.events = events;
+        this.created = now;
+    }
 
-        for (String name : names) {
+    public GameEngine update(Instant now) {
+        List<Event> newEvents = new ArrayList<>();
+        newEvents.addAll(events);
+        for (String name : NAMES) {
             Optional<Event> optEvent = events.stream()
                     .filter(event -> event.getName().equals(name))
                     .reduce((a, b) -> b);
@@ -53,8 +57,8 @@ public class GameEngine {
 
                 Duration duration = Duration.between(event.getCreated(), now);
 
-                float x1 = getCoOrd(event.getX(), event.getXs(), event.getCreated(), lastInstant);
-                float y1 = getCoOrd(event.getY(), event.getYs(), event.getCreated(), lastInstant);
+                float x1 = getCoOrd(event.getX(), event.getXs(), event.getCreated(), created);
+                float y1 = getCoOrd(event.getY(), event.getYs(), event.getCreated(), created);
                 float x2 = getCoOrd(event.getX(), event.getXs(), event.getCreated(), now);
                 float y2 = getCoOrd(event.getY(), event.getYs(), event.getCreated(), now);
 
@@ -90,7 +94,7 @@ public class GameEngine {
                                 partOfTimeStep = Math.abs((event.getY() - boundaryY) / (y2 - event.getY()));
                             }
                             Instant newEventTime = event.getCreated().plusNanos((long) (duration.toNanos() * partOfTimeStep));
-                            events.add(new Event(CHANGE_DIRECTION, boundaryX, boundaryY, 0, 0, event.getName(), newEventTime));
+                            newEvents.add(new Event(CHANGE_DIRECTION, boundaryX, boundaryY, 0, 0, event.getName(), newEventTime));
                         }
                     }
                 } else {
@@ -188,17 +192,16 @@ public class GameEngine {
                             partOfTimeStep = Math.abs((event.getY() - boundaryY) / (y2 - event.getY()));
                         }
                         Instant newEventTime = event.getCreated().plusNanos((long) (duration.toNanos() * partOfTimeStep));
-                        events.add(new Event(CHANGE_DIRECTION, boundaryX, boundaryY, newXs, newYs, event.getName(), newEventTime));
+                        newEvents.add(new Event(CHANGE_DIRECTION, boundaryX, boundaryY, newXs, newYs, event.getName(), newEventTime));
                     }
                 }
             }
         }
-        this.lastInstant = now;
+        return new GameEngine(now, newEvents, mapState);
     }
 
     private boolean isInGhostHome(float x, float y) {
         return ((x >= 11) && (x <= 16) && (y >= 12f) && (y <=15));
-//        return false;
     }
 
     private boolean canGo(int x, int y, int xs, int ys) {
@@ -206,24 +209,14 @@ public class GameEngine {
             return true;
         }
         return false;
-//        return mapState.isGhostDoor(x + xs, y + ys) && (ys < 0);
     }
 
     public List<Drawable> getDrawables(Instant now) {
-//        System.out.println("getDrawables");
-
-        // disble for replay
-        update(now);
-        // added to allow replay
         List<Event> eventsSoFar = events.stream()
-                .filter(event -> event.getCreated().compareTo(now) < 0)
+                .filter(event -> event.getCreated().compareTo(now) <= 0)
                 .collect(Collectors.toList());
 
-        List<String> names = eventsSoFar.stream()
-                .map(Event::getName)
-                .collect(Collectors.toList());
-
-        List<Drawable> drawables = names.stream()
+        List<Drawable> drawables = NAMES.stream()
                 .map((name) -> eventsSoFar.stream()
                         .filter(event -> event.getName().equals(name))
                         .reduce((a, b) -> b)
@@ -249,7 +242,6 @@ public class GameEngine {
     }
 
     public float getCoOrd(float startCoOrd, float v, Instant start, Instant now) {
-//        return startCoOrd;
         return startCoOrd + SPEED * v * 0.001f * (now.toEpochMilli() - start.toEpochMilli());
     }
 

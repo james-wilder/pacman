@@ -3,6 +3,7 @@ package co.uk.handmadetools;
 import co.uk.handmadetools.graphics.SpriteLoader;
 import co.uk.handmadetools.model.Constants;
 import co.uk.handmadetools.model.MapState;
+import co.uk.handmadetools.ui.KeyState;
 import co.uk.handmadetools.ui.PacManFrame;
 import co.uk.handmadetools.ui.PacManPanel;
 
@@ -40,8 +41,7 @@ public class Main {
         frame.getContentPane().add(panel, BorderLayout.CENTER);
         frame.pack();
         frame.setVisible(true);
-
-        gameEngine.start();
+        frame.addKeyListener(new KeyState());
 
         Runnable runnable = () -> {
             while (true) {
