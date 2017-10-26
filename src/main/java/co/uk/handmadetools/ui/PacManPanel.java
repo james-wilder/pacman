@@ -62,22 +62,22 @@ public class PacManPanel extends JPanel {
         drawables.stream()
                 .sorted((m1, m2) -> m2.getName().compareTo(m1.getName()))
                 .forEach(moveable -> {
-                    int gx = (int) (moveable.getX() * 8 * SCALE - 4 * SCALE);
-                    int gy = (int) (moveable.getY() * 8 * SCALE - 4 * SCALE);
+                    int gx = (int) (moveable.getPosition().getX() * 8 * SCALE - 4 * SCALE);
+                    int gy = (int) (moveable.getPosition().getY() * 8 * SCALE - 4 * SCALE);
                     BufferedImage image = spriteLoader.get(moveable.getName());
                     g.drawImage(image, gx, gy, 2 * 8 * SCALE, 2 * 8 * SCALE, null);
                     if (moveable.getName().startsWith("ghost")) {
                         BufferedImage eyes = null;
-                        if (moveable.getXFacing() < 0) {
+                        if (moveable.getSpeed().getVx() < 0) {
                             eyes = spriteLoader.get("ghost_eyes_left");
                         }
-                        if (moveable.getXFacing() > 0) {
+                        if (moveable.getSpeed().getVx() > 0) {
                             eyes = spriteLoader.get("ghost_eyes_right");
                         }
-                        if (moveable.getYFacing() < 0) {
+                        if (moveable.getSpeed().getVy() < 0) {
                             eyes = spriteLoader.get("ghost_eyes_up");
                         }
-                        if (moveable.getYFacing() > 0) {
+                        if (moveable.getSpeed().getVy() > 0) {
                             eyes = spriteLoader.get("ghost_eyes_down");
                         }
                         if (eyes != null) {

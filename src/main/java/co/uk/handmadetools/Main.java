@@ -18,10 +18,10 @@ public class Main {
     }
 
     public void run() {
-        System.out.println("Load sprites");
-
+        // Initial GameEngine object. Is immutable so call update to get next state
         GameEngine gameEngine = new GameEngine();
 
+        // UI bits
         PacManFrame frame = new PacManFrame();
         frame.setLocation(200, 200);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -33,6 +33,7 @@ public class Main {
         frame.setVisible(true);
         frame.addKeyListener(new KeyState());
 
+        // And a thread to keep it all updating
         Runnable runnable = () -> {
             while (true) {
                 panel.invalidate();
@@ -48,7 +49,6 @@ public class Main {
 
         Thread thread = new Thread(runnable);
         thread.start();
-
     }
 
 }

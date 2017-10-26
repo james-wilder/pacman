@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f7343a81-365e-4510-8d6e-bfabe9969997" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/co/uk/handmadetools/GameEngine.java" afterPath="$PROJECT_DIR$/src/main/java/co/uk/handmadetools/GameEngine.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/co/uk/handmadetools/Main.java" afterPath="$PROJECT_DIR$/src/main/java/co/uk/handmadetools/Main.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/co/uk/handmadetools/model/Drawable.java" afterPath="$PROJECT_DIR$/src/main/java/co/uk/handmadetools/model/Drawable.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/co/uk/handmadetools/model/Event.java" afterPath="$PROJECT_DIR$/src/main/java/co/uk/handmadetools/model/Event.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/co/uk/handmadetools/ui/PacManPanel.java" afterPath="$PROJECT_DIR$/src/main/java/co/uk/handmadetools/ui/PacManPanel.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -25,24 +29,12 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="GameEngine.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="GameEngine.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/co/uk/handmadetools/GameEngine.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="45" column="0" lean-forward="true" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
+            <state relative-caret-position="425">
+              <caret line="42" column="5" lean-forward="true" selection-start-line="42" selection-start-column="5" selection-end-line="42" selection-end-column="5" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/co/uk/handmadetools/Main.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="23" column="0" lean-forward="true" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -50,8 +42,8 @@
       <file leaf-file-name="PacManPanel.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/co/uk/handmadetools/ui/PacManPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="25" column="0" lean-forward="true" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+            <state relative-caret-position="1043">
+              <caret line="70" column="0" lean-forward="false" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -107,12 +99,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/resources/sprites/i.txt" />
-        <option value="$PROJECT_DIR$/src/main/resources/sprites/k.txt" />
-        <option value="$PROJECT_DIR$/src/main/resources/sprites/l.txt" />
-        <option value="$PROJECT_DIR$/src/main/resources/sprites/o.txt" />
-        <option value="$PROJECT_DIR$/src/main/resources/sprites/m.txt" />
-        <option value="$PROJECT_DIR$/src/main/resources/sprites/n.txt" />
         <option value="$PROJECT_DIR$/src/main/resources/sprites/pill.txt" />
         <option value="$PROJECT_DIR$/src/main/resources/sprites/power_pill.txt" />
         <option value="$PROJECT_DIR$/src/main/resources/sprites/p.txt" />
@@ -143,7 +129,6 @@
         <option value="$PROJECT_DIR$/src/main/java/co/uk/handmadetools/Event.java" />
         <option value="$PROJECT_DIR$/src/main/java/co/uk/handmadetools/MapState.java" />
         <option value="$PROJECT_DIR$/src/main/java/co/uk/handmadetools/PacManPanel.java" />
-        <option value="$PROJECT_DIR$/src/main/java/co/uk/handmadetools/model/Drawable.java" />
         <option value="$PROJECT_DIR$/src/main/resources/sprites/ghost_eyes_right.txt" />
         <option value="$PROJECT_DIR$/src/main/resources/sprites/ghost_eyes_down.txt" />
         <option value="$PROJECT_DIR$/src/main/resources/sprites/ghost_eyes_up.txt" />
@@ -153,11 +138,18 @@
         <option value="$PROJECT_DIR$/src/main/java/co/uk/handmadetools/graphics/SpriteLoader.java" />
         <option value="$PROJECT_DIR$/src/main/resources/sprites/pacman.txt" />
         <option value="$PROJECT_DIR$/src/main/java/co/uk/handmadetools/model/MapState.java" />
-        <option value="$PROJECT_DIR$/src/main/java/co/uk/handmadetools/GameEngine.java" />
         <option value="$PROJECT_DIR$/src/main/java/co/uk/handmadetools/KeyState.java" />
         <option value="$PROJECT_DIR$/src/main/java/co/uk/handmadetools/ui/KeyState.java" />
-        <option value="$PROJECT_DIR$/src/main/java/co/uk/handmadetools/ui/PacManPanel.java" />
         <option value="$PROJECT_DIR$/src/main/java/co/uk/handmadetools/Main.java" />
+        <option value="$PROJECT_DIR$/src/main/java/co/uk/handmadetools/model/CanTurn.java" />
+        <option value="$PROJECT_DIR$/src/main/java/co/uk/handmadetools/model/Event.java" />
+        <option value="$PROJECT_DIR$/src/main/java/co/uk/handmadetools/model/Drawable.java" />
+        <option value="$PROJECT_DIR$/src/main/java/co/uk/handmadetools/model/UnitSpeed.java" />
+        <option value="$PROJECT_DIR$/src/main/java/co/uk/handmadetools/model/Speed.java" />
+        <option value="$PROJECT_DIR$/src/main/java/co/uk/handmadetools/model/UnitPosition.java" />
+        <option value="$PROJECT_DIR$/src/main/java/co/uk/handmadetools/model/Position.java" />
+        <option value="$PROJECT_DIR$/src/main/java/co/uk/handmadetools/ui/PacManPanel.java" />
+        <option value="$PROJECT_DIR$/src/main/java/co/uk/handmadetools/GameEngine.java" />
       </list>
     </option>
   </component>
@@ -454,6 +446,7 @@
       <recent name="co.uk.handmadetools" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="co.uk.handmadetools.model" />
       <recent name="co.uk.handmadetools" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
@@ -759,64 +752,19 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="26" />
+      <option name="time" value="29" />
     </breakpoint-manager>
-    <watches-manager />
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="unitPosition.toPosition().equals(event.getPosition())" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/resources/sprites/b.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/sprites/f.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/sprites/l.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="4" lean-forward="false" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/sprites/o.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/sprites/m.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="4" lean-forward="false" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/sprites/pill.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="3" lean-forward="false" selection-start-line="7" selection-start-column="3" selection-end-line="7" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/sprites/n.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/sprites/p.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
@@ -978,22 +926,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/co/uk/handmadetools/model/Event.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/co/uk/handmadetools/model/Drawable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/co/uk/handmadetools/model/Constants.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -1106,10 +1038,92 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/co/uk/handmadetools/model/CanTurn.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="25" column="0" lean-forward="true" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/co/uk/handmadetools/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/co/uk/handmadetools/model/Drawable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_102/src.zip!/java/lang/Math.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="322">
+          <caret line="440" column="25" lean-forward="false" selection-start-line="440" selection-start-column="25" selection-end-line="440" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_102/src.zip!/java/lang/Object.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="322">
+          <caret line="147" column="19" lean-forward="false" selection-start-line="147" selection-start-column="19" selection-end-line="147" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/co/uk/handmadetools/model/Position.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="21" column="19" lean-forward="false" selection-start-line="21" selection-start-column="19" selection-end-line="21" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/co/uk/handmadetools/model/UnitPosition.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="20" column="25" lean-forward="true" selection-start-line="20" selection-start-column="25" selection-end-line="20" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/co/uk/handmadetools/model/Speed.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/co/uk/handmadetools/model/UnitSpeed.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/co/uk/handmadetools/model/Event.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="629">
+          <caret line="37" column="14" lean-forward="false" selection-start-line="37" selection-start-column="14" selection-end-line="37" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/co/uk/handmadetools/ui/PacManPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="25" column="0" lean-forward="true" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+        <state relative-caret-position="1043">
+          <caret line="70" column="0" lean-forward="false" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1118,19 +1132,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/co/uk/handmadetools/GameEngine.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="45" column="0" lean-forward="true" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
+        <state relative-caret-position="425">
+          <caret line="42" column="5" lean-forward="true" selection-start-line="42" selection-start-column="5" selection-end-line="42" selection-end-column="5" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/co/uk/handmadetools/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="0" lean-forward="true" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>

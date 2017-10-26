@@ -3,6 +3,10 @@ package co.uk.handmadetools;
 import co.uk.handmadetools.model.Drawable;
 import co.uk.handmadetools.model.Event;
 import co.uk.handmadetools.model.MapState;
+import co.uk.handmadetools.model.Position;
+import co.uk.handmadetools.model.Speed;
+import co.uk.handmadetools.model.UnitPosition;
+import co.uk.handmadetools.model.UnitSpeed;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -30,12 +34,12 @@ public class GameEngine {
         mapState = new MapState();
         events = new ArrayList<>();
 
-        events.add(new Event(CREATED, 13.5f, 11f, -4.0f, 0.0f, "ghost_1", created));
-        events.add(new Event(CREATED, 11.5f, 14f, 0.0f, -3.0f, "ghost_2", created));
-        events.add(new Event(CREATED, 13.5f, 14f, 0.0f, 3.0f, "ghost_3", created));
-        events.add(new Event(CREATED, 15.5f, 14f, 0.0f, -3.0f, "ghost_4", created));
-//        events.add(new Event(CHANGE_DIRECTION, 9.0f, 10.5f, 0.0f, 4.0f, "ghost_1", created.plusSeconds(1)));
-        events.add(new Event(CREATED, 13.5f, 23f, 3.0f, 0.0f, "pacman", created));
+        events.add(new Event(CREATED, new Position(13.5f, 11f), new Speed(-4.0f, 0.0f), "ghost_1", created));
+        events.add(new Event(CREATED, new Position(11.5f, 14f), new Speed(0.0f, -3.0f), "ghost_2", created));
+        events.add(new Event(CREATED, new Position(13.5f, 14f), new Speed(0.0f, 3.0f), "ghost_3", created));
+        events.add(new Event(CREATED, new Position(15.5f, 14f), new Speed(0.0f, -3.0f), "ghost_4", created));
+//        events.add(new Event(CHANGE_DIRECTION, new Position(9.0f, 10.5f), new Speed(0.0f, 4.0f, "ghost_1", created.plusSeconds(1)));
+        events.add(new Event(CREATED, new Position(13.5f, 23f), new Speed(3.0f, 0.0f), "pacman", created));
     }
 
     public GameEngine(Instant now, List<Event> events, MapState mapState) {
@@ -55,46 +59,45 @@ public class GameEngine {
             if (optEvent.isPresent()) {
                 Event event = optEvent.get();
 
-                Duration duration = Duration.between(event.getCreated(), now);
+                Position position1 = calcPosition(event, created);
+                Position position2 = calcPosition(event, now);
 
-                float x1 = getCoOrd(event.getX(), event.getXs(), event.getCreated(), created);
-                float y1 = getCoOrd(event.getY(), event.getYs(), event.getCreated(), created);
-                float x2 = getCoOrd(event.getX(), event.getXs(), event.getCreated(), now);
-                float y2 = getCoOrd(event.getY(), event.getYs(), event.getCreated(), now);
+                UnitPosition unitPosition = new UnitPosition(
+                        Math.round(position2.getX()),
+                        Math.round(position2.getY())
+                );
 
-                float v = Math.abs(event.getXs()) + Math.abs(event.getYs());
+                UnitSpeed unitSpeed = new UnitSpeed(
+                        (int) Math.signum(event.getSpeed().getVx()),
+                        (int) Math.signum(event.getSpeed().getVy())
+                );
 
-                int xGrid = Math.round(x2);
-                int yGrid = Math.round(y2);
-
-                int intXd = (int) Math.signum(event.getXs());
-                int intYd = (int) Math.signum(event.getYs());
-
-                float xFloor1 = (float) Math.floor(x1);
-                float xFloor2 = (float) Math.floor(x2);
-                float yFloor1 = (float) Math.floor(y1);
-                float yFloor2 = (float) Math.floor(y2);
+                Position floor1 = new Position(
+                        (float) Math.floor(position1.getX()),
+                        (float) Math.floor(position1.getY())
+                );
+                Position floor2 = new Position(
+                        (float) Math.floor(position2.getX()),
+                        (float) Math.floor(position2.getY())
+                );
 
                 if ("pacman".equals(name)) {
-                    if (((Math.round(x1) != event.getX()) || (Math.round(y1) != event.getY())) &&
-                            ((xFloor1 != xFloor2) || (yFloor1 != yFloor2))) {
-                        boolean canLeft = canGo(xGrid, yGrid, -1, 0);
-                        boolean canRight = canGo(xGrid, yGrid, 1, 0);
-                        boolean canUp = canGo(xGrid, yGrid, -1, 0);
-                        boolean canDown = canGo(xGrid, yGrid, 1, 0);
+                    if (!position1.equals(event.getPosition()) && !floor1.equals(floor2)) {
+                        boolean canLeft = canGo(unitPosition, UnitSpeed.LEFT);
+                        boolean canRight = canGo(unitPosition, UnitSpeed.RIGHT);
+                        boolean canUp = canGo(unitPosition, UnitSpeed.UP);
+                        boolean canDown = canGo(unitPosition, UnitSpeed.DOWN);
 
-                        float boundaryX = (xFloor1 != xFloor2) ? xGrid : x1;
-                        float boundaryY = (yFloor1 != yFloor2) ? yGrid : y1;
+                        Position boundary;
+                        if (event.getSpeed().getVy() == 0) {
+                            boundary = new Position(unitPosition.getX(), position1.getY());
+                        } else {
+                            boundary = new Position(position1.getX(), unitPosition.getY());
+                        }
 
                         if (!canRight) {
-                            float partOfTimeStep;
-                            if (x2 != x1) {
-                                partOfTimeStep = Math.abs((event.getX() - boundaryX) / (x2 - event.getX()));
-                            } else {
-                                partOfTimeStep = Math.abs((event.getY() - boundaryY) / (y2 - event.getY()));
-                            }
-                            Instant newEventTime = event.getCreated().plusNanos((long) (duration.toNanos() * partOfTimeStep));
-                            newEvents.add(new Event(CHANGE_DIRECTION, boundaryX, boundaryY, 0, 0, event.getName(), newEventTime));
+                            Instant newEventTime = instantFromEvent(event, boundary, position2, now);
+                            newEvents.add(new Event(CHANGE_DIRECTION, boundary, Speed.STOP, event.getName(), newEventTime));
                         }
                     }
                 } else {
@@ -102,60 +105,52 @@ public class GameEngine {
                     boolean goRight = false;
                     boolean do180 = false;
 
-                    float boundaryX = 0;    // because stupid IDE warnings
-                    float boundaryY = 0;    // because stupid IDE warnings
+                    Position boundary = null;
 
-                    // cross boundary
-                    if (isInGhostHome(x1, y1)) {
-                        if (intXd == 0) {
-                            if ((y1 > 13.5f) && (y2 <= 13.5f)) {
-                                boundaryX = x1;
-                                boundaryY = 13.5f;
-                                if (x1 != 13.5f) {
+                    if (isInGhostHome(position1)) {
+                        if (event.getSpeed().getVx() == 0) {
+                            if ((position1.getY() > 13.5f) && (position2.getY() <= 13.5f)) {
+                                boundary = new Position(position1.getX(), 13.5f);
+                                if (position1.getX() != 13.5f) {
                                     if ((Math.random() < 0.5f)) {
                                         do180 = true;
                                     } else {
-                                        if (x2 < 13.5f) {
+                                        if (position2.getX() < 13.5f) {
                                             goRight = true;
                                         } else {
                                             goLeft = true;
                                         }
                                     }
                                 }
-                            } else if ((y1 < 14.5f) && (y2 >= 14.5f)) {
-                                boundaryX = x1;
-                                boundaryY = 14.5f;
+                            } else if ((position1.getY() < 14.5f) && (position2.getY() >= 14.5f)) {
+                                boundary = new Position(position1.getX(), 14.5f);
                                 do180 = true;
                             }
                         } else {
-                            if (((x1 <= 13.5f) && (x2 >= 13.5)) ||
-                                    ((x2 <= 13.5f) && (x1 >= 13.5))) {
-                                boundaryX = 13.5f;
-                                boundaryY = y1;
-                                if (intXd < 0) {
+                            if (((position1.getX() <= 13.5f) && (position2.getX() >= 13.5)) ||
+                                    ((position2.getX() <= 13.5f) && (position1.getX() >= 13.5))) {
+                                boundary = new Position(13.5f, position1.getY());
+                                if (event.getSpeed().getVx() < 0) {
                                     goRight = true;
                                 } else {
                                     goLeft = true;
                                 }
                             }
                         }
-                    } else if (((Math.round(x1) != event.getX()) || (Math.round(y1) != event.getY())) &&
-                            ((xFloor1 != xFloor2) || (yFloor1 != yFloor2))) {
-                        // System.out.println(now);
+                    } else if (!unitPosition.toPosition().equals(event.getPosition()) && !floor1.equals(floor2)) {
+                        if (event.getSpeed().getVy() == 0) {
+                            boundary = new Position(unitPosition.getX(), position1.getY());
+                        } else {
+                            boundary = new Position(position1.getX(), unitPosition.getY());
+                        }
 
-                        // System.out.println("xGrid=" + xGrid);
-                        // System.out.println("yGrid=" + yGrid);
+                        boolean canLeft = canGo(unitPosition, turnLeft(unitSpeed));
+                        boolean canForward = canGo(unitPosition, unitSpeed);
+                        boolean canRight = canGo(unitPosition, turnRight(unitSpeed));
 
-                        boundaryX = (xFloor1 != xFloor2) ? xGrid : x1;
-                        boundaryY = (yFloor1 != yFloor2) ? yGrid : y1;
-
-                        boolean canLeft = canGo(xGrid, yGrid, intYd, -intXd);
-                        boolean canForward = canGo(xGrid, yGrid, intXd, intYd);
-                        boolean canRight = canGo(xGrid, yGrid, -intYd, intXd);
-
-                        // System.out.println("canLeft=" + canLeft);
-                        // System.out.println("canForward=" + canForward);
-                        // System.out.println("canRight=" + canRight);
+                         System.out.println("canLeft=" + canLeft);
+                         System.out.println("canForward=" + canForward);
+                         System.out.println("canRight=" + canRight);
 
                         if (!canForward || ((Math.random() < 0.5) && (canLeft || canRight))) {
                             if (!canLeft || (canRight && (Math.random() < 0.5))) {
@@ -166,33 +161,20 @@ public class GameEngine {
                         }
                     }
 
-                    float newXs;
-                    float newYs;
+                    Speed newSpeed;
                     if (goLeft || goRight || do180) {
                         if (goRight) {
-                            System.out.println("Right");
-                            newXs = v * - intYd;
-                            newYs = v * intXd;
+                            newSpeed = turnRight(event.getSpeed());
                         } else if (goLeft) {
-                            System.out.println("Left");
-                            newXs = v * intYd;
-                            newYs = v * - intXd;
+                            newSpeed = turnLeft(event.getSpeed());
                         } else {
-                            System.out.println("180");
-                            newXs = - event.getXs();
-                            newYs = - event.getYs();
+                            newSpeed = turn180(event.getSpeed());
                         }
 
-                        System.out.println(String.format("%.2f %.2f %.2f %.2f ", event.getXs(), event.getYs(), newXs, newYs));
+                        System.out.println(String.format("%.2f %.2f %.2f %.2f %.2f %.2f ", boundary.getX(), boundary.getY(), event.getSpeed().getVx(), event.getSpeed().getVy(), newSpeed.getVx(), newSpeed.getVy()));
 
-                        float partOfTimeStep;
-                        if (x2 != x1) {
-                            partOfTimeStep = Math.abs((event.getX() - boundaryX) / (x2 - event.getX()));
-                        } else {
-                            partOfTimeStep = Math.abs((event.getY() - boundaryY) / (y2 - event.getY()));
-                        }
-                        Instant newEventTime = event.getCreated().plusNanos((long) (duration.toNanos() * partOfTimeStep));
-                        newEvents.add(new Event(CHANGE_DIRECTION, boundaryX, boundaryY, newXs, newYs, event.getName(), newEventTime));
+                        Instant newEventTime = instantFromEvent(event, boundary, position2, now);
+                        newEvents.add(new Event(CHANGE_DIRECTION, boundary, newSpeed, event.getName(), newEventTime));
                     }
                 }
             }
@@ -200,15 +182,68 @@ public class GameEngine {
         return new GameEngine(now, newEvents, mapState);
     }
 
-    private boolean isInGhostHome(float x, float y) {
+    private Speed turnRight(Speed speed) {
+        System.out.println("Right");
+        return new Speed(-speed.getVy(), speed.getVx());
+    }
+
+    private Speed turnLeft(Speed speed) {
+        System.out.println("Left");
+        return new Speed(speed.getVy(), -speed.getVx());
+    }
+
+    private Speed turn180(Speed speed) {
+        System.out.println("180");
+        return new Speed(-speed.getVx(), -speed.getVy());
+    }
+
+    private UnitSpeed turnRight(UnitSpeed speed) {
+        System.out.println("Right");
+        return new UnitSpeed(-speed.getVy(), speed.getVx());
+    }
+
+    private UnitSpeed turnLeft(UnitSpeed speed) {
+        System.out.println("Left");
+        return new UnitSpeed(speed.getVy(), -speed.getVx());
+    }
+
+    private UnitSpeed turn180(UnitSpeed speed) {
+        System.out.println("180");
+        return new UnitSpeed(-speed.getVx(), -speed.getVy());
+    }
+
+    private boolean isInGhostHome(Position position) {
+        float x = position.getX();
+        float y = position.getY();
         return ((x >= 11) && (x <= 16) && (y >= 12f) && (y <=15));
     }
 
-    private boolean canGo(int x, int y, int xs, int ys) {
-        if (!mapState.isWall(x + xs, y + ys)) {
-            return true;
+    private Instant instantFromEvent(Event event, Position boundary, Position withoutBoundary, Instant now) {
+        Duration duration = Duration.between(event.getCreated(), now);
+
+        float partOfTimeStep;
+        if (event.getPosition().getX() != boundary.getX()) {
+            partOfTimeStep = Math.abs((event.getPosition().getX() - boundary.getX()) / (withoutBoundary.getX() - event.getPosition().getX()));
+        } else {
+            partOfTimeStep = Math.abs((event.getPosition().getY() - boundary.getY()) / (withoutBoundary.getY() - event.getPosition().getY()));
         }
-        return false;
+        return event.getCreated().plusNanos((long) (duration.toNanos() * partOfTimeStep));
+    }
+
+    private boolean canGo(UnitPosition unitPosition, UnitSpeed unitSpeed) {
+        UnitPosition moved = unitPosition.plus(unitSpeed);
+        return !mapState.isWall(moved.getX(), moved.getY());
+    }
+
+    private Position calcPosition(Event event, Instant created) {
+        return new Position(
+            getCoOrd(event.getPosition().getX(), event.getSpeed().getVx(), event.getCreated(), created),
+            getCoOrd(event.getPosition().getY(), event.getSpeed().getVy(), event.getCreated(), created)
+        );
+    }
+
+    private boolean canGo(int x, int y, int xs, int ys) {
+        return !mapState.isWall(x + xs, y + ys);
     }
 
     public List<Drawable> getDrawables(Instant now) {
@@ -216,25 +251,20 @@ public class GameEngine {
                 .filter(event -> event.getCreated().compareTo(now) <= 0)
                 .collect(Collectors.toList());
 
-        List<Drawable> drawables = NAMES.stream()
+        return NAMES.stream()
                 .map((name) -> eventsSoFar.stream()
                         .filter(event -> event.getName().equals(name))
                         .reduce((a, b) -> b)
                         .map((event) -> new Drawable(
-                                        getCoOrd(event.getX(), event.getXs(), event.getCreated(), now),
-                                        getCoOrd(event.getY(), event.getYs(), event.getCreated(), now),
-                                        event.getXs(),
-                                        event.getYs(),
-                                        event.getName(),
-                                        now
+                                        calcPosition(event, now),
+                                        event.getSpeed(),
+                                        event.getName()
                                 )
                         )
                 )
                 .filter(Optional::isPresent)
                 .map(Optional::get)
                 .collect(Collectors.toList());
-
-        return drawables;
     }
 
     public MapState getMapState() {
