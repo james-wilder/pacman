@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 public class SpriteTest {
 
     int animationFrame = 0;
-    int totalFrames = 5;
+    int totalFrames = 6;
 
     private SpriteLoader spriteLoader = new SpriteLoader();
 
