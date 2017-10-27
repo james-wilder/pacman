@@ -62,6 +62,15 @@ public class SpriteLoader {
         loadSprite("ghost_eyes_up", 16, 16);
         loadSprite("ghost_eyes_down", 16, 16);
         loadSprite("pacman", 16, 16);
+
+        loadSprite("bunny_1", 32, 32);
+        loadSprite("bunny_2", 32, 32);
+        loadSprite("bunny_3", 32, 32);
+        loadSprite("bunny_4", 32, 32);
+        loadSprite("bunny_5", 32, 32);
+        loadSprite("bunny_6", 32, 32);
+        loadSprite("bunny_7", 32, 32);
+        loadSprite("bunny_8", 32, 32);
     }
 
     public BufferedImage get(String filename) {
@@ -99,6 +108,14 @@ public class SpriteLoader {
                             }
                             if ("C".equals(rgbString)) {
                                 Color c = new Color(0, 192, 255);
+                                image.setRGB(x, y, c.getRGB());
+                            }
+                            if ("G".equals(rgbString)) {
+                                Color c = new Color(160, 160, 160);
+                                image.setRGB(x, y, c.getRGB());
+                            }
+                            if ("g".equals(rgbString)) {
+                                Color c = new Color(90, 90, 90);
                                 image.setRGB(x, y, c.getRGB());
                             }
                         }
