@@ -1,4 +1,4 @@
-# pacman
+# Bunny Game
 
 TODO
 ## Graphcs
