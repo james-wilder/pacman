@@ -2,8 +2,8 @@
 
 TODO
 ## Graphcs
-* Draw trees
-* Seasons
+* Draw trees (?)
+* Seasons (?)
 * Rabbit vertical animation
 * Fox animation
 * Higher resolution bunnies and foxes

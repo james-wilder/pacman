@@ -19,7 +19,7 @@ import java.util.Random;
 
 public class PacManPanel extends JPanel {
 
-    public static final List<String> MONTHS = Arrays.asList("spring", "summer", "autumn", "winter");
+    public static final List<String> MONTHS = Arrays.asList("spring"); // , "summer", "autumn", "winter");
 
     private SpriteLoader spriteLoader;
     private static final int SCALE = 3;
