@@ -35,7 +35,20 @@ public class KeyState implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
-
+        synchronized(this) {
+            if (e.getKeyCode() == KeyEvent.VK_UP) {
+                up = false;
+            }
+            if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+                down = false;
+            }
+            if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+                left = false;
+            }
+            if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+                right = false;
+            }
+        }
     }
 
     public static synchronized boolean isUp() {

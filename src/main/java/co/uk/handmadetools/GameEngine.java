@@ -7,6 +7,7 @@ import co.uk.handmadetools.model.Position;
 import co.uk.handmadetools.model.Speed;
 import co.uk.handmadetools.model.UnitPosition;
 import co.uk.handmadetools.model.UnitSpeed;
+import co.uk.handmadetools.ui.KeyState;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -21,8 +22,10 @@ import static co.uk.handmadetools.model.Event.Type.CREATED;
 
 public class GameEngine {
 
-    private static final List<String> NAMES = Arrays.asList("pacman", "ghost_1", "ghost_2", "ghost_3", "ghost_4");
+    private static final List<String> NAMES = Arrays.asList("bunny", "ghost_1", "ghost_2", "ghost_3", "ghost_4");
+    private static final List<String> PLAYER_NAMES = Arrays.asList("bunny");
     private static final float SPEED = 1.0f;
+    private static final float BUNNY_SPEED = 3.0f;
 //    float SPEED = 0.4f;
 
     private final MapState mapState; // TODO: update with events
@@ -34,12 +37,12 @@ public class GameEngine {
         mapState = new MapState();
         events = new ArrayList<>();
 
-        events.add(new Event(CREATED, new Position(13.5f, 11f), new Speed(-4.0f, 0.0f), "ghost_1", created));
-        events.add(new Event(CREATED, new Position(11.5f, 14f), new Speed(0.0f, -3.0f), "ghost_2", created));
-        events.add(new Event(CREATED, new Position(13.5f, 14f), new Speed(0.0f, 3.0f), "ghost_3", created));
-        events.add(new Event(CREATED, new Position(15.5f, 14f), new Speed(0.0f, -3.0f), "ghost_4", created));
+        events.add(new Event(CREATED, new Position(1.0f, 1.0f), new Speed(0.0f, 4.0f), "ghost_1", created));
+        events.add(new Event(CREATED, new Position(31f, 1f), new Speed(0.0f, 4.0f), "ghost_2", created));
+        events.add(new Event(CREATED, new Position(1.0f, 25f), new Speed(0.0f, -4.0f), "ghost_3", created));
+        events.add(new Event(CREATED, new Position(31.0f, 25f), new Speed(0.0f, -4.0f), "ghost_4", created));
 //        events.add(new Event(CHANGE_DIRECTION, new Position(9.0f, 10.5f), new Speed(0.0f, 4.0f, "ghost_1", created.plusSeconds(1)));
-        events.add(new Event(CREATED, new Position(13.5f, 23f), new Speed(3.0f, 0.0f), "pacman", created));
+        events.add(new Event(CREATED, new Position(16.5f, 13f), new Speed(BUNNY_SPEED, 0.0f), "bunny", created));
     }
 
     public GameEngine(Instant now, List<Event> events, MapState mapState) {
@@ -81,22 +84,69 @@ public class GameEngine {
                         (float) Math.floor(position2.getY())
                 );
 
-                if ("pacman".equals(name)) {
-                    if (!position1.equals(event.getPosition()) && !floor1.equals(floor2)) {
+                if (PLAYER_NAMES.contains(name)) {
+                    if ((!position1.equals(event.getPosition()) && !floor1.equals(floor2)) || (event.getSpeed().equals(Speed.STOP))) {
                         boolean canLeft = canGo(unitPosition, UnitSpeed.LEFT);
                         boolean canRight = canGo(unitPosition, UnitSpeed.RIGHT);
                         boolean canUp = canGo(unitPosition, UnitSpeed.UP);
                         boolean canDown = canGo(unitPosition, UnitSpeed.DOWN);
 
+                        System.out.println("canLeft=" + canLeft);
+                        System.out.println("canRight=" + canRight);
+                        System.out.println("canUp=" + canUp);
+                        System.out.println("canDown=" + canDown);
+
                         Position boundary;
-                        if (event.getSpeed().getVy() == 0) {
+                        if (event.getSpeed().equals(Speed.STOP)) {
+                            boundary = event.getPosition();
+                        } else if (event.getSpeed().getVy() == 0) {
                             boundary = new Position(unitPosition.getX(), position1.getY());
                         } else {
                             boundary = new Position(position1.getX(), unitPosition.getY());
                         }
 
-                        if (!canRight) {
-                            Instant newEventTime = instantFromEvent(event, boundary, position2, now);
+                        Instant newEventTime = instantFromEvent(event, boundary, position2, now);
+                        if (event.getSpeed().equals(Speed.STOP)) {
+                            newEventTime = now;
+                        }
+                        if (canRight && ((event.getSpeed().getVx() > 0) || KeyState.isRight())) {
+                            if (event.getSpeed().getVx() <= 0) {
+                                System.out.println(String.format("%.2f %.2f %.2f %.2f %.2f %.2f ", boundary.getX(), boundary.getY(), event.getSpeed().getVx(), event.getSpeed().getVy(), BUNNY_SPEED, 0f));
+                                newEvents.add(new Event(CHANGE_DIRECTION, boundary, new Speed(BUNNY_SPEED, 0), event.getName(), newEventTime));
+                            }
+                        }
+                        if (canLeft && ((event.getSpeed().getVx() < 0) || KeyState.isLeft())) {
+                            if (event.getSpeed().getVx() >= 0) {
+                                System.out.println(String.format("%.2f %.2f %.2f %.2f %.2f %.2f ", boundary.getX(), boundary.getY(), event.getSpeed().getVx(), event.getSpeed().getVy(), -BUNNY_SPEED, 0f));
+                                newEvents.add(new Event(CHANGE_DIRECTION, boundary, new Speed(-BUNNY_SPEED, 0), event.getName(), newEventTime));
+                            }
+                        }
+                        if (canDown && ((event.getSpeed().getVy() > 0) || KeyState.isDown())) {
+                            if (event.getSpeed().getVy() <= 0) {
+                                System.out.println(String.format("%.2f %.2f %.2f %.2f %.2f %.2f ", boundary.getX(), boundary.getY(), event.getSpeed().getVx(), event.getSpeed().getVy(), 0f, BUNNY_SPEED));
+                                newEvents.add(new Event(CHANGE_DIRECTION, boundary, new Speed(0, BUNNY_SPEED), event.getName(), newEventTime));
+                            }
+                        }
+                        if (canUp && ((event.getSpeed().getVy() < 0) || KeyState.isUp())) {
+                            if (event.getSpeed().getVy() >= 0) {
+                                System.out.println(String.format("%.2f %.2f %.2f %.2f %.2f %.2f ", boundary.getX(), boundary.getY(), event.getSpeed().getVx(), event.getSpeed().getVy(), 0f, -BUNNY_SPEED));
+                                newEvents.add(new Event(CHANGE_DIRECTION, boundary, new Speed(0, -BUNNY_SPEED), event.getName(), newEventTime));
+                            }
+                        }
+                        if (!canRight && (event.getSpeed().getVx() > 0)) {
+                            System.out.println(String.format("%.2f %.2f %.2f %.2f %.2f %.2f ", boundary.getX(), boundary.getY(), event.getSpeed().getVx(), event.getSpeed().getVy(), 0f, 0f));
+                            newEvents.add(new Event(CHANGE_DIRECTION, boundary, Speed.STOP, event.getName(), newEventTime));
+                        }
+                        if (!canLeft && (event.getSpeed().getVx() < 0)) {
+                            System.out.println(String.format("%.2f %.2f %.2f %.2f %.2f %.2f ", boundary.getX(), boundary.getY(), event.getSpeed().getVx(), event.getSpeed().getVy(), 0f, 0f));
+                            newEvents.add(new Event(CHANGE_DIRECTION, boundary, Speed.STOP, event.getName(), newEventTime));
+                        }
+                        if (!canDown && (event.getSpeed().getVy() > 0)) {
+                            System.out.println(String.format("%.2f %.2f %.2f %.2f %.2f %.2f ", boundary.getX(), boundary.getY(), event.getSpeed().getVx(), event.getSpeed().getVy(), 0f, 0f));
+                            newEvents.add(new Event(CHANGE_DIRECTION, boundary, Speed.STOP, event.getName(), newEventTime));
+                        }
+                        if (!canUp && (event.getSpeed().getVy() < 0)) {
+                            System.out.println(String.format("%.2f %.2f %.2f %.2f %.2f %.2f ", boundary.getX(), boundary.getY(), event.getSpeed().getVx(), event.getSpeed().getVy(), 0f, 0f));
                             newEvents.add(new Event(CHANGE_DIRECTION, boundary, Speed.STOP, event.getName(), newEventTime));
                         }
                     }
@@ -106,38 +156,7 @@ public class GameEngine {
                     boolean do180 = false;
 
                     Position boundary = null;
-
-                    if (isInGhostHome(position1)) {
-                        if (event.getSpeed().getVx() == 0) {
-                            if ((position1.getY() > 13.5f) && (position2.getY() <= 13.5f)) {
-                                boundary = new Position(position1.getX(), 13.5f);
-                                if (position1.getX() != 13.5f) {
-                                    if ((Math.random() < 0.5f)) {
-                                        do180 = true;
-                                    } else {
-                                        if (position2.getX() < 13.5f) {
-                                            goRight = true;
-                                        } else {
-                                            goLeft = true;
-                                        }
-                                    }
-                                }
-                            } else if ((position1.getY() < 14.5f) && (position2.getY() >= 14.5f)) {
-                                boundary = new Position(position1.getX(), 14.5f);
-                                do180 = true;
-                            }
-                        } else {
-                            if (((position1.getX() <= 13.5f) && (position2.getX() >= 13.5)) ||
-                                    ((position2.getX() <= 13.5f) && (position1.getX() >= 13.5))) {
-                                boundary = new Position(13.5f, position1.getY());
-                                if (event.getSpeed().getVx() < 0) {
-                                    goRight = true;
-                                } else {
-                                    goLeft = true;
-                                }
-                            }
-                        }
-                    } else if (!unitPosition.toPosition().equals(event.getPosition()) && !floor1.equals(floor2)) {
+                    if (!unitPosition.toPosition().equals(event.getPosition()) && !floor1.equals(floor2)) {
                         if (event.getSpeed().getVy() == 0) {
                             boundary = new Position(unitPosition.getX(), position1.getY());
                         } else {
@@ -148,9 +167,9 @@ public class GameEngine {
                         boolean canForward = canGo(unitPosition, unitSpeed);
                         boolean canRight = canGo(unitPosition, turnRight(unitSpeed));
 
-                         System.out.println("canLeft=" + canLeft);
-                         System.out.println("canForward=" + canForward);
-                         System.out.println("canRight=" + canRight);
+//                         System.out.println("canLeft=" + canLeft);
+//                         System.out.println("canForward=" + canForward);
+//                         System.out.println("canRight=" + canRight);
 
                         if (!canForward || ((Math.random() < 0.5) && (canLeft || canRight))) {
                             if (!canLeft || (canRight && (Math.random() < 0.5))) {
@@ -171,8 +190,6 @@ public class GameEngine {
                             newSpeed = turn180(event.getSpeed());
                         }
 
-                        System.out.println(String.format("%.2f %.2f %.2f %.2f %.2f %.2f ", boundary.getX(), boundary.getY(), event.getSpeed().getVx(), event.getSpeed().getVy(), newSpeed.getVx(), newSpeed.getVy()));
-
                         Instant newEventTime = instantFromEvent(event, boundary, position2, now);
                         newEvents.add(new Event(CHANGE_DIRECTION, boundary, newSpeed, event.getName(), newEventTime));
                     }
@@ -183,32 +200,32 @@ public class GameEngine {
     }
 
     private Speed turnRight(Speed speed) {
-        System.out.println("Right");
+//        System.out.println("Right");
         return new Speed(-speed.getVy(), speed.getVx());
     }
 
     private Speed turnLeft(Speed speed) {
-        System.out.println("Left");
+//        System.out.println("Left");
         return new Speed(speed.getVy(), -speed.getVx());
     }
 
     private Speed turn180(Speed speed) {
-        System.out.println("180");
+//        System.out.println("180");
         return new Speed(-speed.getVx(), -speed.getVy());
     }
 
     private UnitSpeed turnRight(UnitSpeed speed) {
-        System.out.println("Right");
+//        System.out.println("Right");
         return new UnitSpeed(-speed.getVy(), speed.getVx());
     }
 
     private UnitSpeed turnLeft(UnitSpeed speed) {
-        System.out.println("Left");
+//        System.out.println("Left");
         return new UnitSpeed(speed.getVy(), -speed.getVx());
     }
 
     private UnitSpeed turn180(UnitSpeed speed) {
-        System.out.println("180");
+//        System.out.println("180");
         return new UnitSpeed(-speed.getVx(), -speed.getVy());
     }
 

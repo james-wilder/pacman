@@ -14,7 +14,7 @@
         GGGGGGGGGG  GGGGGG
       GGGGGGGGGGGGGGGGGGGGG
      GGGGGGGGGGGGGGGGGGGGGG
-     GGGG    GGGGGGGG   GGG   
+     GGGG    GGGGGGGG    G
        GGG    GGGGGG
         GGG     GGGGG
         GGG       GGG

@@ -1,6 +1,8 @@
 package co.uk.handmadetools.graphics;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -63,14 +65,28 @@ public class SpriteLoader {
         loadSprite("ghost_eyes_down", 16, 16);
         loadSprite("pacman", 16, 16);
 
-        loadSprite("bunny_1", 32, 32);
-        loadSprite("bunny_2", 32, 32);
-        loadSprite("bunny_3", 32, 32);
-        loadSprite("bunny_4", 32, 32);
-        loadSprite("bunny_5", 32, 32);
-        loadSprite("bunny_6", 32, 32);
-        loadSprite("bunny_7", 32, 32);
-        loadSprite("bunny_8", 32, 32);
+        loadSprite("bunny_right_1", 32, 32);
+        loadSprite("bunny_right_2", 32, 32);
+        loadSprite("bunny_right_3", 32, 32);
+        loadSprite("bunny_right_4", 32, 32);
+        loadSprite("bunny_right_5", 32, 32);
+        loadSprite("bunny_right_6", 32, 32);
+
+        flipX("bunny_right_1", "bunny_left_1");
+        flipX("bunny_right_2", "bunny_left_2");
+        flipX("bunny_right_3", "bunny_left_3");
+        flipX("bunny_right_4", "bunny_left_4");
+        flipX("bunny_right_5", "bunny_left_5");
+        flipX("bunny_right_6", "bunny_left_6");
+    }
+
+    private void flipX(String source, String dest) {
+        BufferedImage image = get(source);
+        AffineTransform affineTransform = AffineTransform.getScaleInstance(-1, 1);
+        affineTransform.translate(-image.getWidth(null), 0);
+        AffineTransformOp affineTransformOp = new AffineTransformOp(affineTransform, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+        image = affineTransformOp.filter(image, null);
+        map.put(dest, image);
     }
 
     public BufferedImage get(String filename) {

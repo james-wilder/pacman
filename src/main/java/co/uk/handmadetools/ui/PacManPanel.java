@@ -18,6 +18,7 @@ public class PacManPanel extends JPanel {
     private SpriteLoader spriteLoader;
     private static final int SCALE = 3;
     private GameEngine gameEngine;
+    public static final int BUNNY_FRAMES = 6;
 
     public PacManPanel(GameEngine gameEngine) {
         super.setBackground(Color.BLACK);
@@ -30,7 +31,7 @@ public class PacManPanel extends JPanel {
 
         Instant now = Instant.now();
 
-        g.setColor(Color.BLACK);
+        g.setColor(new Color(112, 79, 63));
         g.fillRect(0, 0, getWidth(), getHeight());
 
         gameEngine = gameEngine.update(now);
@@ -39,15 +40,16 @@ public class PacManPanel extends JPanel {
 
         for (int y = 0; y < Constants.Y_SIZE; y++) {
             for (int x = 0; x < Constants.X_SIZE; x++) {
-                g.setColor(Color.GRAY);
-//                g.drawRect(x * 24, y * 24, 24, 24);
-
-                String wall = state.getWallType(x, y);
-
-                BufferedImage sprite = spriteLoader.get(wall);
-                if (sprite != null) {
-                    g.drawImage(sprite, x * 8 * SCALE, y * 8 * SCALE, 8 * SCALE, 8 * SCALE, null);
+                g.setColor(Color.BLACK);
+                int extra = 16;
+                if (!state.isWall(x, y)) {
+                    g.fillRect(x * 8 * SCALE - extra, y * 8 * SCALE - extra, 8 * SCALE + 2 * extra, 8 * SCALE + 2 * extra);
                 }
+            }
+        }
+
+        for (int y = 0; y < Constants.Y_SIZE; y++) {
+            for (int x = 0; x < Constants.X_SIZE; x++) {
                 if (state.isPill(x, y)) {
                     BufferedImage pill = spriteLoader.get("pill");
                     g.drawImage(pill, x * 8 * SCALE, y * 8 * SCALE, 8 * SCALE, 8 * SCALE, null);
@@ -64,24 +66,35 @@ public class PacManPanel extends JPanel {
                 .forEach(moveable -> {
                     int gx = (int) (moveable.getPosition().getX() * 8 * SCALE - 4 * SCALE);
                     int gy = (int) (moveable.getPosition().getY() * 8 * SCALE - 4 * SCALE);
-                    BufferedImage image = spriteLoader.get(moveable.getName());
-                    g.drawImage(image, gx, gy, 2 * 8 * SCALE, 2 * 8 * SCALE, null);
-                    if (moveable.getName().startsWith("ghost")) {
-                        BufferedImage eyes = null;
+                    if ("bunny".equals(moveable.getName())) {
+                        int frame = (int) (BUNNY_FRAMES * (moveable.getPosition().getX() - Math.floor(moveable.getPosition().getX())));
+                        String dir = "right";
                         if (moveable.getSpeed().getVx() < 0) {
-                            eyes = spriteLoader.get("ghost_eyes_left");
+                            dir = "left";
+                            frame = BUNNY_FRAMES - frame - 1;
                         }
-                        if (moveable.getSpeed().getVx() > 0) {
-                            eyes = spriteLoader.get("ghost_eyes_right");
-                        }
-                        if (moveable.getSpeed().getVy() < 0) {
-                            eyes = spriteLoader.get("ghost_eyes_up");
-                        }
-                        if (moveable.getSpeed().getVy() > 0) {
-                            eyes = spriteLoader.get("ghost_eyes_down");
-                        }
-                        if (eyes != null) {
-                            g.drawImage(eyes, gx, gy, 2 * 8 * SCALE, 2 * 8 * SCALE, null);
+                        BufferedImage image = spriteLoader.get(moveable.getName() + "_" + dir + "_" + (frame + 1));
+                        g.drawImage(image, gx, gy, 2 * 8 * SCALE, 2 * 8 * SCALE, null);
+                    } else {
+                        BufferedImage image = spriteLoader.get(moveable.getName());
+                        g.drawImage(image, gx, gy, 2 * 8 * SCALE, 2 * 8 * SCALE, null);
+                        if (moveable.getName().startsWith("ghost")) {
+                            BufferedImage eyes = null;
+                            if (moveable.getSpeed().getVx() < 0) {
+                                eyes = spriteLoader.get("ghost_eyes_left");
+                            }
+                            if (moveable.getSpeed().getVx() > 0) {
+                                eyes = spriteLoader.get("ghost_eyes_right");
+                            }
+                            if (moveable.getSpeed().getVy() < 0) {
+                                eyes = spriteLoader.get("ghost_eyes_up");
+                            }
+                            if (moveable.getSpeed().getVy() > 0) {
+                                eyes = spriteLoader.get("ghost_eyes_down");
+                            }
+                            if (eyes != null) {
+                                g.drawImage(eyes, gx, gy, 2 * 8 * SCALE, 2 * 8 * SCALE, null);
+                            }
                         }
                     }
                 });

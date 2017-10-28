@@ -11,7 +11,7 @@ public class MapState {
 
     private static final String[][] map = new String[Constants.X_SIZE][Constants.Y_SIZE];
 
-    private static final String WALL = "abcdefghijklmnopqrstuvwxyz1234567";
+    private static final String WALL = "Ww";
 
     public MapState() {
         loadMap();

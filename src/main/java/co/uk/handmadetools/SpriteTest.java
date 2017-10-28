@@ -1,6 +1,9 @@
 package co.uk.handmadetools;
 
 import co.uk.handmadetools.graphics.SpriteLoader;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -8,8 +11,6 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 public class SpriteTest {
 
@@ -77,7 +78,7 @@ public class SpriteTest {
 
             int x = (getWidth() / 2);
             int y = (getHeight() / 2);
-            BufferedImage image = spriteLoader.get("bunny_" + (animationFrame + 1));
+            BufferedImage image = spriteLoader.get("bunny_right_" + (animationFrame + 1));
             g.drawImage(image, x - 8 * 3, y - 8 * 3, 16 * 3, 16 * 3, null);
         }
     }
