@@ -11,18 +11,81 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.time.Instant;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 public class PacManPanel extends JPanel {
+
+    public static final List<String> MONTHS = Arrays.asList("spring", "summer", "autumn", "winter");
 
     private SpriteLoader spriteLoader;
     private static final int SCALE = 3;
     private GameEngine gameEngine;
     public static final int BUNNY_FRAMES = 6;
+    private Random random = new Random();
 
-    public PacManPanel(GameEngine gameEngine) {
+    private Map<String, BufferedImage> backgrounds = new HashMap<>();
+
+    public PacManPanel() {
         super.setBackground(Color.BLACK);
-        this.gameEngine = gameEngine;
+        paintBackgrounds();
+    }
+
+    private synchronized void paintBackgrounds() {
+        int xSize = Constants.X_SIZE * SCALE * 8;
+        int ySize = Constants.Y_SIZE * SCALE * 8;
+        Color bgColor = new Color(0, 200, 0);
+
+        BufferedImage bg = new BufferedImage(xSize, ySize, BufferedImage.TYPE_INT_ARGB);
+        Graphics bgG = bg.getGraphics();
+        bgG.setColor(bgColor);
+        bgG.fillRect(0, 0, xSize, ySize);
+
+        MapState state = new MapState();
+        for (int y = 0; y < Constants.Y_SIZE; y++) {
+            for (int x = 0; x < Constants.X_SIZE; x++) {
+                bgG.setColor(new Color(0, 0, 0));
+                int extra = 16;
+                if (!state.isWall(x, y)) {
+                    bgG.fillRect(x * 8 * SCALE - extra, y * 8 * SCALE - extra, 8 * SCALE + 2 * extra, 8 * SCALE + 2 * extra);
+                }
+            }
+        }
+
+        for (String month : MONTHS) {
+            BufferedImage image = new BufferedImage(xSize, ySize, BufferedImage.TYPE_INT_ARGB);
+            Graphics g = image.getGraphics();
+            g.drawImage(bg, 0, 0, null);
+            backgrounds.put(month, image);
+        }
+
+        for (int y = 1; y < ySize; y = y + 2) {
+            for (int x = 0; x < xSize; x++) {
+                if (random.nextDouble() < 0.6) {
+                    int rgb = bg.getRGB(x, y);
+                    double x2 = (double) 5 * (random.nextDouble() - 0.5);
+                    double y2 = 6 - random.nextInt(2) - x2 * x2 / 5;
+                    Color c = new Color(0, 200, 0);
+                    if (y % 12 < 6) {
+                        c = new Color(0, 180, 0);
+                    }
+                    if (rgb == bgColor.getRGB()) {
+                        for (String month : MONTHS) {
+                            BufferedImage image = backgrounds.get(month);
+                            Graphics g = image.getGraphics();
+                            g.setColor(c);
+                            g.drawLine(x - 1, y, (int) (x + x2), (int) (y - y2));
+                            g.drawLine(x, y, (int) (x + x2), (int) (y - y2));
+                            g.drawLine(x + 1, y, (int) (x + x2), (int) (y - y2));
+                            backgrounds.put(month, image);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     @Override
@@ -31,22 +94,12 @@ public class PacManPanel extends JPanel {
 
         Instant now = Instant.now();
 
-        g.setColor(new Color(112, 79, 63));
-        g.fillRect(0, 0, getWidth(), getHeight());
-
         gameEngine = gameEngine.update(now);
         MapState state = gameEngine.getMapState();
         List<Drawable> drawables = gameEngine.getDrawables(now);
 
-        for (int y = 0; y < Constants.Y_SIZE; y++) {
-            for (int x = 0; x < Constants.X_SIZE; x++) {
-                g.setColor(Color.BLACK);
-                int extra = 16;
-                if (!state.isWall(x, y)) {
-                    g.fillRect(x * 8 * SCALE - extra, y * 8 * SCALE - extra, 8 * SCALE + 2 * extra, 8 * SCALE + 2 * extra);
-                }
-            }
-        }
+        BufferedImage bg = backgrounds.get("spring");
+        g.drawImage(bg, 0, 0, Constants.X_SIZE * SCALE * 8, Constants.Y_SIZE * SCALE * 8, null);
 
         for (int y = 0; y < Constants.Y_SIZE; y++) {
             for (int x = 0; x < Constants.X_SIZE; x++) {
@@ -104,4 +157,7 @@ public class PacManPanel extends JPanel {
         this.spriteLoader = spriteLoader;
     }
 
+    public void setGameEngine(GameEngine gameEngine) {
+        this.gameEngine = gameEngine;
+    }
 }

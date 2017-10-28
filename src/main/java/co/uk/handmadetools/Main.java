@@ -18,14 +18,16 @@ public class Main {
     }
 
     public void run() {
-        // Initial GameEngine object. Is immutable so call update to get next state
-        GameEngine gameEngine = new GameEngine();
-
         // UI bits
         PacManFrame frame = new PacManFrame();
         frame.setLocation(200, 200);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        PacManPanel panel = new PacManPanel(gameEngine);
+        PacManPanel panel = new PacManPanel();
+
+        // Initial GameEngine object. Is immutable so call update to get next state
+        GameEngine gameEngine = new GameEngine();
+        panel.setGameEngine(gameEngine);
+
         panel.setPreferredSize(new Dimension(24 * Constants.X_SIZE, 24 * Constants.Y_SIZE));
         panel.setSpriteLoader(new SpriteLoader());
         frame.getContentPane().add(panel, BorderLayout.CENTER);

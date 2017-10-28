@@ -2,7 +2,6 @@
 
 TODO
 ## Graphcs
-* Draw grass
 * Draw trees
 * Seasons
 * Rabbit vertical animation

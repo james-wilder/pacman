@@ -25,7 +25,7 @@ public class GameEngine {
     private static final List<String> NAMES = Arrays.asList("bunny", "ghost_1", "ghost_2", "ghost_3", "ghost_4");
     private static final List<String> PLAYER_NAMES = Arrays.asList("bunny");
     private static final float SPEED = 1.0f;
-    private static final float BUNNY_SPEED = 3.0f;
+    private static final float BUNNY_SPEED = 3.5f;
 //    float SPEED = 0.4f;
 
     private final MapState mapState; // TODO: update with events
@@ -91,10 +91,10 @@ public class GameEngine {
                         boolean canUp = canGo(unitPosition, UnitSpeed.UP);
                         boolean canDown = canGo(unitPosition, UnitSpeed.DOWN);
 
-                        System.out.println("canLeft=" + canLeft);
-                        System.out.println("canRight=" + canRight);
-                        System.out.println("canUp=" + canUp);
-                        System.out.println("canDown=" + canDown);
+//                        System.out.println("canLeft=" + canLeft);
+//                        System.out.println("canRight=" + canRight);
+//                        System.out.println("canUp=" + canUp);
+//                        System.out.println("canDown=" + canDown);
 
                         Position boundary;
                         if (event.getSpeed().equals(Speed.STOP)) {

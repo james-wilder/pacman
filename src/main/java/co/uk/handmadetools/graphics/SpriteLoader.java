@@ -127,11 +127,11 @@ public class SpriteLoader {
                                 image.setRGB(x, y, c.getRGB());
                             }
                             if ("G".equals(rgbString)) {
-                                Color c = new Color(160, 160, 160);
+                                Color c = new Color(192, 192, 192);
                                 image.setRGB(x, y, c.getRGB());
                             }
                             if ("g".equals(rgbString)) {
-                                Color c = new Color(90, 90, 90);
+                                Color c = new Color(128, 128, 128);
                                 image.setRGB(x, y, c.getRGB());
                             }
                         }
