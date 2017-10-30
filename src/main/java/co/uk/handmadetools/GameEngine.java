@@ -25,7 +25,7 @@ public class GameEngine {
     private static final List<String> NAMES = Arrays.asList("bunny", "ghost_1", "ghost_2", "ghost_3", "ghost_4");
     private static final List<String> PLAYER_NAMES = Arrays.asList("bunny");
     private static final float SPEED = 1.0f;
-    private static final float BUNNY_SPEED = 3f;
+    private static final float BUNNY_SPEED = 4f;
 //    float SPEED = 0.4f;
 
     private final MapState mapState; // TODO: update with events
@@ -37,10 +37,10 @@ public class GameEngine {
         mapState = new MapState();
         events = new ArrayList<>();
 
-        events.add(new Event(CREATED, new Position(1.0f, 1.0f), new Speed(0.0f, 3.0f), "ghost_1", created));
-        events.add(new Event(CREATED, new Position(31f, 1f), new Speed(0.0f, 3.0f), "ghost_2", created));
-        events.add(new Event(CREATED, new Position(1.0f, 25f), new Speed(0.0f, -3.0f), "ghost_3", created));
-        events.add(new Event(CREATED, new Position(31.0f, 25f), new Speed(0.0f, -3.0f), "ghost_4", created));
+        events.add(new Event(CREATED, new Position(1.0f, 1.0f), new Speed(0.0f, 4.0f), "ghost_1", created));
+        events.add(new Event(CREATED, new Position(31f, 1f), new Speed(0.0f, 4.0f), "ghost_2", created));
+        events.add(new Event(CREATED, new Position(1.0f, 25f), new Speed(0.0f, -4.0f), "ghost_3", created));
+        events.add(new Event(CREATED, new Position(31.0f, 25f), new Speed(0.0f, -4.0f), "ghost_4", created));
         events.add(new Event(CREATED, new Position(16.5f, 13f), new Speed(BUNNY_SPEED, 0.0f), "bunny", created));
     }
 

@@ -1,6 +1,4 @@
-package co.uk.handmadetools;
-
-import co.uk.handmadetools.graphics.SpriteLoader;
+package co.uk.handmadetools.graphics;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -29,7 +27,7 @@ public class SpriteTest {
         frame.setLocation(200, 200);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         SpriteTestPanel panel = new SpriteTestPanel();
-        panel.setPreferredSize(new Dimension(100, 100));
+        panel.setPreferredSize(new Dimension(200, 200));
         frame.getContentPane().add(panel, BorderLayout.CENTER);
         frame.pack();
 
@@ -78,8 +76,8 @@ public class SpriteTest {
 
             int x = (getWidth() / 2);
             int y = (getHeight() / 2);
-            BufferedImage image = spriteLoader.get("bunny_right_" + (animationFrame + 1));
-            g.drawImage(image, x - 8 * 3, y - 8 * 3, 16 * 3, 16 * 3, null);
+            BufferedImage image = spriteLoader.get("bunny_right_64_" + (animationFrame + 1));
+            g.drawImage(image, x - 32, y - 32, 64, 64, null);
         }
     }
 }

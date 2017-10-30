@@ -15,7 +15,7 @@ import java.util.Map;
 
 public class SpriteLoader {
 
-    private static final int IMAGE_TYPE = BufferedImage.TYPE_INT_ARGB;
+    public static final int IMAGE_TYPE = BufferedImage.TYPE_INT_ARGB;
     private Map<String, BufferedImage> map = new HashMap<>();
 
     public SpriteLoader() {
@@ -78,6 +78,20 @@ public class SpriteLoader {
         flipX("bunny_right_4", "bunny_left_4");
         flipX("bunny_right_5", "bunny_left_5");
         flipX("bunny_right_6", "bunny_left_6");
+
+        loadSprite("bunny_right_64_1", 64, 64);
+        loadSprite("bunny_right_64_2", 64, 64);
+        loadSprite("bunny_right_64_3", 64, 64);
+        loadSprite("bunny_right_64_4", 64, 64);
+        loadSprite("bunny_right_64_5", 64, 64);
+        loadSprite("bunny_right_64_6", 64, 64);
+
+        flipX("bunny_right_64_1", "bunny_left_64_1");
+        flipX("bunny_right_64_2", "bunny_left_64_2");
+        flipX("bunny_right_64_3", "bunny_left_64_3");
+        flipX("bunny_right_64_4", "bunny_left_64_4");
+        flipX("bunny_right_64_5", "bunny_left_64_5");
+        flipX("bunny_right_64_6", "bunny_left_64_6");
     }
 
     private void flipX(String source, String dest) {

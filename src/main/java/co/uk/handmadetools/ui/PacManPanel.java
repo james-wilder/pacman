@@ -120,14 +120,14 @@ public class PacManPanel extends JPanel {
                     int gx = (int) (moveable.getPosition().getX() * 8 * SCALE - 4 * SCALE);
                     int gy = (int) (moveable.getPosition().getY() * 8 * SCALE - 4 * SCALE);
                     if ("bunny".equals(moveable.getName())) {
-                        int frame = (int) (BUNNY_FRAMES * (moveable.getPosition().getX() - Math.floor(moveable.getPosition().getX())));
+                        int frame = (int) (BUNNY_FRAMES * (moveable.getPosition().getX() / 2 - Math.floor(moveable.getPosition().getX() / 2)));
                         String dir = "right";
                         if (moveable.getSpeed().getVx() < 0) {
                             dir = "left";
                             frame = BUNNY_FRAMES - frame - 1;
                         }
-                        BufferedImage image = spriteLoader.get(moveable.getName() + "_" + dir + "_" + (frame + 1));
-                        g.drawImage(image, gx, gy, 2 * 8 * SCALE, 2 * 8 * SCALE, null);
+                        BufferedImage image = spriteLoader.get(moveable.getName() + "_" + dir + "_64_" + (frame + 1));
+                        g.drawImage(image, gx - 8, gy - 8, 64, 64, null);
                     } else {
                         BufferedImage image = spriteLoader.get(moveable.getName());
                         g.drawImage(image, gx, gy, 2 * 8 * SCALE, 2 * 8 * SCALE, null);
