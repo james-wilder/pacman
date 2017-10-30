@@ -21,39 +21,6 @@ public class SpriteLoader {
     public SpriteLoader() {
         loadSprite("pill", 8, 8);
         loadSprite("power_pill", 8, 8);
-        loadSprite("a", 8, 8);
-        loadSprite("b", 8, 8);
-        loadSprite("c", 8, 8);
-        loadSprite("d", 8, 8);
-        loadSprite("e", 8, 8);
-        loadSprite("f", 8, 8);
-        loadSprite("g", 8, 8);
-        loadSprite("h", 8, 8);
-        loadSprite("i", 8, 8);
-        loadSprite("j", 8, 8);
-        loadSprite("k", 8, 8);
-        loadSprite("l", 8, 8);
-        loadSprite("m", 8, 8);
-        loadSprite("n", 8, 8);
-        loadSprite("o", 8, 8);
-        loadSprite("p", 8, 8);
-        loadSprite("q", 8, 8);
-        loadSprite("r", 8, 8);
-        loadSprite("s", 8, 8);
-        loadSprite("t", 8, 8);
-        loadSprite("u", 8, 8);
-        loadSprite("v", 8, 8);
-        loadSprite("w", 8, 8);
-        loadSprite("x", 8, 8);
-        loadSprite("y", 8, 8);
-        loadSprite("z", 8, 8);
-        loadSprite("1", 8, 8);
-        loadSprite("2", 8, 8);
-        loadSprite("3", 8, 8);
-        loadSprite("4", 8, 8);
-        loadSprite("5", 8, 8);
-        loadSprite("6", 8, 8);
-        loadSprite("7", 8, 8);
 
         loadSprite("ghost_1", 16, 16);
         loadSprite("ghost_2", 16, 16);
@@ -64,20 +31,6 @@ public class SpriteLoader {
         loadSprite("ghost_eyes_up", 16, 16);
         loadSprite("ghost_eyes_down", 16, 16);
         loadSprite("pacman", 16, 16);
-
-        loadSprite("bunny_right_1", 32, 32);
-        loadSprite("bunny_right_2", 32, 32);
-        loadSprite("bunny_right_3", 32, 32);
-        loadSprite("bunny_right_4", 32, 32);
-        loadSprite("bunny_right_5", 32, 32);
-        loadSprite("bunny_right_6", 32, 32);
-
-        flipX("bunny_right_1", "bunny_left_1");
-        flipX("bunny_right_2", "bunny_left_2");
-        flipX("bunny_right_3", "bunny_left_3");
-        flipX("bunny_right_4", "bunny_left_4");
-        flipX("bunny_right_5", "bunny_left_5");
-        flipX("bunny_right_6", "bunny_left_6");
 
         loadSprite("bunny_right_64_1", 64, 64);
         loadSprite("bunny_right_64_2", 64, 64);
