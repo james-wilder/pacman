@@ -2,13 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f7343a81-365e-4510-8d6e-bfabe9969997" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/co/uk/handmadetools/SpriteTest.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/co/uk/handmadetools/GameEngine.class" afterPath="$PROJECT_DIR$/target/classes/co/uk/handmadetools/GameEngine.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/co/uk/handmadetools/ui/PacManPanel.class" afterPath="$PROJECT_DIR$/target/classes/co/uk/handmadetools/ui/PacManPanel.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/co/uk/handmadetools/GameEngine.java" afterPath="$PROJECT_DIR$/src/main/java/co/uk/handmadetools/GameEngine.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/co/uk/handmadetools/graphics/SpriteLoader.java" afterPath="$PROJECT_DIR$/src/main/java/co/uk/handmadetools/graphics/SpriteLoader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/co/uk/handmadetools/ui/PacManPanel.java" afterPath="$PROJECT_DIR$/src/main/java/co/uk/handmadetools/ui/PacManPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/sprites/ghost_1.txt" afterPath="$PROJECT_DIR$/src/main/resources/sprites/ghost_1.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/sprites/ghost_2.txt" afterPath="$PROJECT_DIR$/src/main/resources/sprites/ghost_2.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/sprites/ghost_3.txt" afterPath="$PROJECT_DIR$/src/main/resources/sprites/ghost_3.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/sprites/ghost_4.txt" afterPath="$PROJECT_DIR$/src/main/resources/sprites/ghost_4.txt" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -53,11 +50,51 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PacManPanel.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="PacManPanel.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/co/uk/handmadetools/ui/PacManPanel.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="42">
               <caret line="115" column="0" lean-forward="true" selection-start-line="115" selection-start-column="0" selection-end-line="115" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ghost_1.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/sprites/ghost_1.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="15" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ghost_2.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/sprites/ghost_2.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ghost_3.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/sprites/ghost_3.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ghost_4.txt" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/sprites/ghost_4.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="204">
+              <caret line="12" column="13" lean-forward="true" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -83,7 +120,6 @@
       <find>resour</find>
       <find>resource</find>
       <find>new BufferedImage</find>
-      <find>1</find>
       <find>canforward</find>
       <find>3</find>
       <find>5</find>
@@ -91,17 +127,19 @@
       <find>GameEngine</find>
       <find>w</find>
       <find>g</find>
+      <find>1</find>
     </findStrings>
     <replaceStrings>
       <replace>&quot;, rtn</replace>
       <replace />
       <replace>6</replace>
-      <replace>5</replace>
       <replace>3</replace>
       <replace>O</replace>
-      <replace>C</replace>
       <replace>W</replace>
       <replace />
+      <replace>`</replace>
+      <replace>C</replace>
+      <replace>5</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -116,7 +154,6 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/main/resources/sprites/ghost_eyes_left.txt" />
-        <option value="$PROJECT_DIR$/src/main/resources/sprites/ghost_1.txt" />
         <option value="$PROJECT_DIR$/src/main/java/co/uk/handmadetools/SpriteLoader.java" />
         <option value="$PROJECT_DIR$/src/main/java/co/uk/handmadetools/Moveable.java" />
         <option value="$PROJECT_DIR$/src/main/java/co/uk/handmadetools/GameState.java" />
@@ -127,9 +164,6 @@
         <option value="$PROJECT_DIR$/src/main/resources/sprites/ghost_eyes_right.txt" />
         <option value="$PROJECT_DIR$/src/main/resources/sprites/ghost_eyes_down.txt" />
         <option value="$PROJECT_DIR$/src/main/resources/sprites/ghost_eyes_up.txt" />
-        <option value="$PROJECT_DIR$/src/main/resources/sprites/ghost_4.txt" />
-        <option value="$PROJECT_DIR$/src/main/resources/sprites/ghost_3.txt" />
-        <option value="$PROJECT_DIR$/src/main/resources/sprites/ghost_2.txt" />
         <option value="$PROJECT_DIR$/src/main/resources/sprites/pacman.txt" />
         <option value="$PROJECT_DIR$/src/main/java/co/uk/handmadetools/KeyState.java" />
         <option value="$PROJECT_DIR$/src/main/java/co/uk/handmadetools/model/CanTurn.java" />
@@ -166,6 +200,10 @@
         <option value="$PROJECT_DIR$/src/main/resources/sprites/bunny_right_64_5.txt" />
         <option value="$PROJECT_DIR$/src/main/resources/sprites/bunny_right_64_2.txt" />
         <option value="$PROJECT_DIR$/src/main/java/co/uk/handmadetools/ui/PacManPanel.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/sprites/ghost_1.txt" />
+        <option value="$PROJECT_DIR$/src/main/resources/sprites/ghost_2.txt" />
+        <option value="$PROJECT_DIR$/src/main/resources/sprites/ghost_3.txt" />
+        <option value="$PROJECT_DIR$/src/main/resources/sprites/ghost_4.txt" />
       </list>
     </option>
   </component>
@@ -822,7 +860,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/co/uk/handmadetools/GameState.java" />
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
@@ -861,27 +898,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="8" column="1" lean-forward="false" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/sprites/ghost_4.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="15" lean-forward="true" selection-start-line="11" selection-start-column="15" selection-end-line="11" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/sprites/ghost_3.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="15" lean-forward="false" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/sprites/ghost_2.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="13" lean-forward="false" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -1174,6 +1190,38 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="42">
           <caret line="115" column="0" lean-forward="true" selection-start-line="115" selection-start-column="0" selection-end-line="115" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/sprites/ghost_1.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/sprites/ghost_2.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/sprites/ghost_3.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/sprites/ghost_4.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="13" lean-forward="true" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
           <folding />
         </state>
       </provider>
