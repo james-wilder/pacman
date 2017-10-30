@@ -1,12 +1,11 @@
 # Bunny Game
 
 TODO
-## Graphcs
+## Graphics
 * Draw trees (?)
 * Seasons (?)
 * Rabbit vertical animation
 * Fox animation
-* Higher resolution bunnies and foxes
 
 ## Gameplay
 * Collision detection
